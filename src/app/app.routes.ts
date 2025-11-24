@@ -13,10 +13,6 @@ export const routes: Routes = [
     component: DashboardComponent, 
     canActivate: [authGuard] 
   },
-  { 
-    path: 'courses', 
-    component: CoursesComponent, 
-    canActivate: [authGuard] 
-  },
-  // ... other protected routes
+
+
 ];
