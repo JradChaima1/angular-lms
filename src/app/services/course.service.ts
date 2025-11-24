@@ -7,7 +7,7 @@ import { Course, Lesson } from '../models/course.model';
   providedIn: 'root'
 })
 export class CourseService {
-  private apiUrl = 'http://localhost:8080';
+  private apiUrl = 'http://localhost:8080/api';
 
   constructor(private http: HttpClient) {}
 
@@ -28,10 +28,14 @@ export class CourseService {
   }
 
   enrollInCourse(courseId: number): Observable<any> {
-    return this.http.post(`${this.apiUrl}/api/users/me/enrollments/${courseId}`, {});
+    return this.http.post(`${this.apiUrl}/users/me/enrollments/${courseId}`, {});
   }
 
   getCoursesByCategory(category: string): Observable<Course[]> {
     return this.http.get<Course[]>(`${this.apiUrl}/courses/category/${category}`);
+  }
+
+  getMyEnrolledCourses(): Observable<Course[]> {
+    return this.http.get<Course[]>(`${this.apiUrl}/users/me/courses`);
   }
 }

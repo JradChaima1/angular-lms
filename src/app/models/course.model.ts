@@ -1,4 +1,4 @@
-// src/app/models/course.model.ts
+
 export interface Course {
   id: number;
   title: string;
@@ -9,6 +9,7 @@ export interface Course {
   difficulty: 'BEGINNER' | 'INTERMEDIATE' | 'ADVANCED';
   price: number;
   enrolled?: boolean;
+  lessons?: Lesson[]; 
 }
 
 export interface Lesson {

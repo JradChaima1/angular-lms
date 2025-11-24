@@ -1,0 +1,81 @@
+<div class="courses-page">
+  <div class="page-header">
+    <h1>Explore Courses 🚀</h1>
+    <p>Choose your next learning adventure!</p>
+  </div>
+
+ 
+  <div class="category-filter">
+    <button 
+      *ngFor="let category of categories"
+      class="category-btn"
+      [class.active]="selectedCategory === category.value"
+      (click)="filterByCategory(category.value)"
+    >
+      <span class="category-icon">{{ category.icon }}</span>
+      <span class="category-label">{{ category.label }}</span>
+    </button>
+  </div>
+
+
+  <div class="loading" *ngIf="isLoading">
+    <div class="spinner">⏳</div>
+    <p>Loading awesome courses...</p>
+  </div>
+
+
+  <div class="error-message" *ngIf="errorMessage && !isLoading">
+    <span class="error-icon">❌</span>
+    <p>{{ errorMessage }}</p>
+  </div>
+
+ 
+  <div class="courses-grid" *ngIf="!isLoading && !errorMessage">
+    <div 
+      *ngFor="let course of filteredCourses" 
+      class="course-card"
+      (click)="viewCourse(course.id)"
+    >
+      <div class="course-thumbnail">
+        <span class="course-icon">{{ getCourseIcon(course.category) }}</span>
+        <div class="course-category">{{ course.category }}</div>
+      </div>
+      
+      <div class="course-content">
+        <h3>{{ course.title }}</h3>
+        <p class="course-description">{{ course.description }}</p>
+        
+        <div class="course-meta">
+          <div class="meta-item">
+            <span class="meta-icon">📝</span>
+            <span>{{ course.lessons?.length || 0 }} Lessons</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-icon">⏱️</span>
+            <span>{{ course.duration || 'N/A' }}</span>
+          </div>
+        </div>
+
+        <div class="course-footer">
+          <div class="instructor">
+            <span class="instructor-icon">👨‍🏫</span>
+            <span>{{ course.instructor || 'Teacher' }}</span>
+          </div>
+          <button 
+            class="btn-enroll"
+            (click)="enrollInCourse(course.id, $event)"
+          >
+            Enroll Now! ✨
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="empty-state" *ngIf="filteredCourses.length === 0">
+      <div class="empty-icon">🔍</div>
+      <h3>No courses found</h3>
+      <p>Try selecting a different category!</p>
+    </div>
+  </div>
+</div>
+

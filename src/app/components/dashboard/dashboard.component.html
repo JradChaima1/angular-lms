@@ -1,14 +1,103 @@
-<div class="dashboard-container">
-  <div class="dashboard-header">
-    <h1>Welcome to Dashboard!</h1>
-    <div class="user-info" *ngIf="currentUser">
-      <p>Hello, <strong>{{ currentUser.firstName }} {{ currentUser.lastName }}</strong>!</p>
-      <p>Role: <span class="role-badge">{{ currentUser.role }}</span></p>
+<div class="dashboard">
+  <div class="welcome-section">
+    <div class="welcome-text">
+      <h1>Welcome Back, <span class="highlight" *ngIf="currentUser">{{ currentUser.firstName }}</span>! 🎉</h1>
+      <p>Ready to continue your learning adventure?</p>
     </div>
-    <button class="btn-logout" (click)="logout()">Logout</button>
+    <div class="welcome-emoji">🚀</div>
   </div>
-  
-  <div class="dashboard-content">
-    <p>You are successfully logged in.</p>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon">📚</div>
+      <div class="stat-info">
+        <h3>5</h3>
+        <p>Enrolled Courses</p>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">✅</div>
+      <div class="stat-info">
+        <h3>3</h3>
+        <p>Completed</p>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">⭐</div>
+      <div class="stat-info">
+        <h3>250</h3>
+        <p>Stars Earned</p>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">🔥</div>
+      <div class="stat-info">
+        <h3>7</h3>
+        <p>Day Streak</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-section">
+    <h2>Continue Learning 📖</h2>
+    <div class="courses-grid">
+      <div class="course-card">
+        <div class="course-thumbnail">🔢</div>
+        <div class="course-info">
+          <h3>Math Adventures</h3>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 60%"></div>
+          </div>
+          <p class="progress-text">60% Complete</p>
+        </div>
+      </div>
+
+      <div class="course-card">
+        <div class="course-thumbnail">🔬</div>
+        <div class="course-info">
+          <h3>Science Fun</h3>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 30%"></div>
+          </div>
+          <p class="progress-text">30% Complete</p>
+        </div>
+      </div>
+
+      <div class="course-card">
+        <div class="course-thumbnail">📖</div>
+        <div class="course-info">
+          <h3>Reading Stories</h3>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 80%"></div>
+          </div>
+          <p class="progress-text">80% Complete</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-section">
+    <h2>Recent Achievements 🏆</h2>
+    <div class="achievements-grid">
+      <div class="achievement-badge">
+        <div class="badge-icon">🥇</div>
+        <p>First Course!</p>
+      </div>
+      <div class="achievement-badge">
+        <div class="badge-icon">⭐</div>
+        <p>100 Stars</p>
+      </div>
+      <div class="achievement-badge">
+        <div class="badge-icon">🔥</div>
+        <p>7 Day Streak</p>
+      </div>
+      <div class="achievement-badge locked">
+        <div class="badge-icon">🏆</div>
+        <p>Master</p>
+      </div>
+    </div>
   </div>
 </div>
