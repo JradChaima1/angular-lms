@@ -1,9 +1,11 @@
 <div class="register-container">
   <div class="register-card">
-    <h2>Create Account</h2>
+    <div class="logo">🎓</div>
+    <h2>Join the Fun!</h2>
+    <p class="subtitle">Start your amazing learning journey! 🌈</p>
     
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-     
+      <!-- First Name Field -->
       <div class="form-group">
         <label for="firstName">First Name</label>
         <input 
@@ -11,14 +13,16 @@
           id="firstName" 
           formControlName="firstName"
           class="form-control"
+          placeholder="Enter your first name"
           [class.error]="registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched"
         />
         <div class="error-message" *ngIf="registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched">
           <span *ngIf="registerForm.get('firstName')?.errors?.['required']">First name is required</span>
-          <span *ngIf="registerForm.get('firstName')?.errors?.['minlength']">First name must be at least 2 characters</span>
+          <span *ngIf="registerForm.get('firstName')?.errors?.['minlength']">At least 2 characters</span>
         </div>
       </div>
 
+      <!-- Last Name Field -->
       <div class="form-group">
         <label for="lastName">Last Name</label>
         <input 
@@ -26,15 +30,16 @@
           id="lastName" 
           formControlName="lastName"
           class="form-control"
+          placeholder="Enter your last name"
           [class.error]="registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched"
         />
         <div class="error-message" *ngIf="registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched">
           <span *ngIf="registerForm.get('lastName')?.errors?.['required']">Last name is required</span>
-          <span *ngIf="registerForm.get('lastName')?.errors?.['minlength']">Last name must be at least 2 characters</span>
+          <span *ngIf="registerForm.get('lastName')?.errors?.['minlength']">At least 2 characters</span>
         </div>
       </div>
 
-    
+      <!-- Email Field -->
       <div class="form-group">
         <label for="email">Email</label>
         <input 
@@ -42,6 +47,7 @@
           id="email" 
           formControlName="email"
           class="form-control"
+          placeholder="your@email.com"
           [class.error]="registerForm.get('email')?.invalid && registerForm.get('email')?.touched"
         />
         <div class="error-message" *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
@@ -50,6 +56,7 @@
         </div>
       </div>
 
+      <!-- Password Field -->
       <div class="form-group">
         <label for="password">Password</label>
         <input 
@@ -57,15 +64,16 @@
           id="password" 
           formControlName="password"
           class="form-control"
+          placeholder="••••••"
           [class.error]="registerForm.get('password')?.invalid && registerForm.get('password')?.touched"
         />
         <div class="error-message" *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
           <span *ngIf="registerForm.get('password')?.errors?.['required']">Password is required</span>
-          <span *ngIf="registerForm.get('password')?.errors?.['minlength']">Password must be at least 6 characters</span>
+          <span *ngIf="registerForm.get('password')?.errors?.['minlength']">At least 6 characters</span>
         </div>
       </div>
 
-   
+      <!-- Confirm Password Field -->
       <div class="form-group">
         <label for="confirmPassword">Confirm Password</label>
         <input 
@@ -73,35 +81,36 @@
           id="confirmPassword" 
           formControlName="confirmPassword"
           class="form-control"
+          placeholder="••••••"
           [class.error]="registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.touched"
         />
         <div class="error-message" *ngIf="registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.touched">
-          <span *ngIf="registerForm.get('confirmPassword')?.errors?.['required']">Please confirm your password</span>
-          <span *ngIf="registerForm.get('confirmPassword')?.errors?.['passwordMismatch']">Passwords do not match</span>
+          <span *ngIf="registerForm.get('confirmPassword')?.errors?.['required']">Please confirm password</span>
+          <span *ngIf="registerForm.get('confirmPassword')?.errors?.['passwordMismatch']">Passwords don't match</span>
         </div>
       </div>
 
-   
+      <!-- Success Message -->
       <div class="alert alert-success" *ngIf="successMessage">
         {{ successMessage }}
       </div>
 
-
+      <!-- Error Message from Server -->
       <div class="alert alert-error" *ngIf="errorMessage">
         {{ errorMessage }}
       </div>
 
- 
+      <!-- Submit Button -->
       <button 
         type="submit" 
         class="btn-primary" 
         [disabled]="registerForm.invalid || isLoading"
       >
-        <span *ngIf="!isLoading">Register</span>
-        <span *ngIf="isLoading">Creating Account...</span>
+        <span *ngIf="!isLoading">Create Account</span>
+        <span *ngIf="isLoading">Creating...</span>
       </button>
 
-  
+      <!-- Login Link -->
       <div class="login-link">
         Already have an account? <a routerLink="/login">Login here</a>
       </div>

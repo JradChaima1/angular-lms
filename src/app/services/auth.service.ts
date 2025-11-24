@@ -12,7 +12,7 @@ export class AuthService {
   public currentUser$ = this.currentUserSubject.asObservable();
 
   constructor(private http: HttpClient) {
-    // Check for existing token on service initialization
+   
     this.checkExistingToken();
   }
 
@@ -20,7 +20,7 @@ export class AuthService {
     return this.http.post<AuthResponse>(`${this.apiUrl}/auth/login`, credentials)
       .pipe(
         tap(response => {
-          // Store token and fetch user data
+     
           localStorage.setItem('token', response.token);
           this.fetchCurrentUser();
         })

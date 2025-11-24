@@ -1,0 +1,236 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #E0F4F4 0%, #D4E8E8 100%);
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+
+  
+  &::before {
+    content: '☁️';
+    position: absolute;
+    top: 40px;
+    left: 60px;
+    font-size: 60px;
+    opacity: 0.6;
+  }
+
+  &::after {
+    content: '📚';
+    position: absolute;
+    left: 80px;
+    top: 50%;
+    font-size: 70px;
+    opacity: 0.7;
+  }
+}
+
+.login-card {
+  background: white;
+  padding: 50px 40px;
+  border-radius: 30px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  max-width: 420px;
+  position: relative;
+  z-index: 1;
+
+  .logo {
+    text-align: center;
+    margin-bottom: 50px;
+    font-size: 80px;
+  }
+
+  h2 {
+    text-align: center;
+    margin-bottom: 10px;
+    color: #FF6B6B;
+    font-size: 36px;
+    font-weight: 700;
+    font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', cursive;
+  }
+
+  .subtitle {
+    text-align: center;
+    color: #666;
+    font-size: 16px;
+    margin-bottom: 30px;
+  }
+}
+
+.form-group {
+  margin-bottom: 25px;
+
+  label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+    color: #555;
+    font-weight: 600;
+    font-size: 15px;
+
+    &::before {
+      font-size: 18px;
+    }
+  }
+
+  label[for="email"]::before {
+    content: '✉️';
+  }
+
+  label[for="password"]::before {
+    content: '🔒';
+  }
+
+  .form-control {
+    width: 100%;
+    padding: 16px 20px;
+    border: 2px solid #E8E8E8;
+    border-radius: 16px;
+    font-size: 15px;
+    background: #F9F9F9;
+    transition: all 0.3s;
+    box-sizing: border-box;
+
+    &::placeholder {
+      color: #999;
+    }
+
+    &:focus {
+      outline: none;
+      border-color: #4ECDC4;
+      background: white;
+      box-shadow: 0 0 0 4px rgba(78, 205, 196, 0.1);
+    }
+
+    &.error {
+      border-color: #FF6B6B;
+      background: #FFF5F5;
+    }
+  }
+
+  .error-message {
+    color: #FF6B6B;
+    font-size: 13px;
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    &::before {
+      content: '⚠️';
+      font-size: 14px;
+    }
+  }
+}
+
+.alert {
+  padding: 14px 18px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  &.alert-error {
+    background-color: #FFE5E5;
+    color: #D63031;
+    border: 2px solid #FF6B6B;
+
+    &::before {
+      content: '❌';
+      font-size: 18px;
+    }
+  }
+
+  &.alert-success {
+    background-color: #E8F8F5;
+    color: #00B894;
+    border: 2px solid #4ECDC4;
+
+    &::before {
+      content: '✅';
+      font-size: 18px;
+    }
+  }
+}
+
+.btn-primary {
+  width: 100%;
+  padding: 18px;
+  background: linear-gradient(90deg, #FF6B6B 0%, #4ECDC4 100%);
+  color: white;
+  border: none;
+  border-radius: 16px;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', cursive;
+
+  &::before {
+    content: '✨';
+    font-size: 20px;
+  }
+
+  &:hover:not(:disabled) {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(255, 107, 107, 0.3);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(-1px);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.register-link {
+  text-align: center;
+  margin-top: 25px;
+  color: #666;
+  font-size: 15px;
+
+  a {
+    color: #4ECDC4;
+    text-decoration: none;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+
+    &::after {
+      content: '🎉';
+      font-size: 16px;
+    }
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .login-container {
+    &::before,
+    &::after {
+      display: none;
+    }
+  }
+
+  .login-card {
+    padding: 40px 30px;
+  }
+}
