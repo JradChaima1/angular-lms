@@ -1,0 +1,124 @@
+.header {
+  background: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  .logo-icon {
+    font-size: 36px;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: 28px;
+    background: linear-gradient(90deg, #FF6B6B 0%, #4ECDC4 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 800;
+    font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', cursive;
+  }
+}
+
+.user-menu {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+
+  .user-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    .user-avatar {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #FF6B6B 0%, #4ECDC4 100%);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
+      text-transform: uppercase;
+    }
+
+    .user-details {
+      display: flex;
+      flex-direction: column;
+
+      .user-name {
+        font-weight: 700;
+        color: #333;
+        font-size: 15px;
+      }
+
+      .user-role {
+        padding: 2px 10px;
+        background: #FFE66D;
+        color: #FF6B6B;
+        border-radius: 10px;
+        font-size: 11px;
+        text-transform: uppercase;
+        font-weight: 700;
+        width: fit-content;
+      }
+    }
+  }
+
+  .btn-logout {
+    padding: 10px 20px;
+    background: #FF6B6B;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 14px;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    span {
+      font-size: 18px;
+    }
+
+    &:hover {
+      background: #E74C3C;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .header-content {
+    padding: 12px 20px;
+  }
+
+  .logo h1 {
+    font-size: 22px;
+  }
+
+  .user-info .user-details {
+    display: none;
+  }
+}
