@@ -1,15 +1,17 @@
-
 export interface Course {
   id: number;
   title: string;
   description: string;
   category: string;
-  instructor: string;
+  instructor?: string;
   duration: number;
   difficulty: 'BEGINNER' | 'INTERMEDIATE' | 'ADVANCED';
-  price: number;
+  price?: number;
   enrolled?: boolean;
-  lessons?: Lesson[]; 
+  lessons?: Lesson[];
+  lessonCount?: number;
+  enrollmentCount?: number;
+  progress?: number;
 }
 
 export interface Lesson {
@@ -21,4 +23,5 @@ export interface Lesson {
   order: number;
   completed: boolean;
   videoUrl?: string;
+  hasQuiz?: boolean;
 }

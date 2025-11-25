@@ -11,7 +11,7 @@
     <div class="stat-card">
       <div class="stat-icon">📚</div>
       <div class="stat-info">
-        <h3>5</h3>
+        <h3>{{ getEnrolledCount() }}</h3>
         <p>Enrolled Courses</p>
       </div>
     </div>
@@ -19,16 +19,16 @@
     <div class="stat-card">
       <div class="stat-icon">✅</div>
       <div class="stat-info">
-        <h3>3</h3>
+        <h3>{{ getCompletedCount() }}</h3>
         <p>Completed</p>
       </div>
     </div>
 
     <div class="stat-card">
-      <div class="stat-icon">⭐</div>
+      <div class="stat-icon">📖</div>
       <div class="stat-info">
-        <h3>250</h3>
-        <p>Stars Earned</p>
+        <h3>{{ getInProgressCount() }}</h3>
+        <p>In Progress</p>
       </div>
     </div>
 
@@ -43,37 +43,34 @@
 
   <div class="content-section">
     <h2>Continue Learning 📖</h2>
-    <div class="courses-grid">
-      <div class="course-card">
-        <div class="course-thumbnail">🔢</div>
-        <div class="course-info">
-          <h3>Math Adventures</h3>
-          <div class="progress-bar">
-            <div class="progress-fill" style="width: 60%"></div>
-          </div>
-          <p class="progress-text">60% Complete</p>
-        </div>
-      </div>
+    
+    <div *ngIf="isLoading" class="loading">
+      <div class="spinner">⏳</div>
+      <p>Loading your courses...</p>
+    </div>
 
-      <div class="course-card">
-        <div class="course-thumbnail">🔬</div>
-        <div class="course-info">
-          <h3>Science Fun</h3>
-          <div class="progress-bar">
-            <div class="progress-fill" style="width: 30%"></div>
-          </div>
-          <p class="progress-text">30% Complete</p>
-        </div>
-      </div>
+    <div *ngIf="!isLoading && enrolledCourses.length === 0" class="empty-state">
+      <div class="empty-icon">📚</div>
+      <h3>No enrolled courses yet</h3>
+      <p>Start learning by enrolling in a course!</p>
+      <button class="btn-browse" (click)="viewCourse(0)">
+        Browse Courses
+      </button>
+    </div>
 
-      <div class="course-card">
-        <div class="course-thumbnail">📖</div>
+    <div class="courses-grid" *ngIf="!isLoading && enrolledCourses.length > 0">
+      <div 
+        *ngFor="let course of enrolledCourses.slice(0, 3)" 
+        class="course-card"
+        (click)="viewCourse(course.id)"
+      >
+        <div class="course-thumbnail">{{ getCourseIcon(course.category) }}</div>
         <div class="course-info">
-          <h3>Reading Stories</h3>
+          <h3>{{ course.title }}</h3>
           <div class="progress-bar">
-            <div class="progress-fill" style="width: 80%"></div>
+            <div class="progress-fill" [style.width.%]="course.progress || 0"></div>
           </div>
-          <p class="progress-text">80% Complete</p>
+          <p class="progress-text">{{ course.progress || 0 }}% Complete</p>
         </div>
       </div>
     </div>

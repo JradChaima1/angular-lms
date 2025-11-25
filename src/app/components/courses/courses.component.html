@@ -4,7 +4,6 @@
     <p>Choose your next learning adventure!</p>
   </div>
 
- 
   <div class="category-filter">
     <button 
       *ngFor="let category of categories"
@@ -12,24 +11,21 @@
       [class.active]="selectedCategory === category.value"
       (click)="filterByCategory(category.value)"
     >
-      <span class="category-icon">{{ category.icon }}</span>
+      <lucide-icon [name]="category.icon" [size]="20"></lucide-icon>
       <span class="category-label">{{ category.label }}</span>
     </button>
   </div>
-
 
   <div class="loading" *ngIf="isLoading">
     <div class="spinner">⏳</div>
     <p>Loading awesome courses...</p>
   </div>
 
-
   <div class="error-message" *ngIf="errorMessage && !isLoading">
-    <span class="error-icon">❌</span>
+    <lucide-icon name="x" [size]="48"></lucide-icon>
     <p>{{ errorMessage }}</p>
   </div>
 
- 
   <div class="courses-grid" *ngIf="!isLoading && !errorMessage">
     <div 
       *ngFor="let course of filteredCourses" 
@@ -47,35 +43,41 @@
         
         <div class="course-meta">
           <div class="meta-item">
-            <span class="meta-icon">📝</span>
-            <span>{{ course.lessons?.length || 0 }} Lessons</span>
+            <lucide-icon name="file-text" [size]="16"></lucide-icon>
+            <span>{{ getLessonsCount(course) }} Lessons</span>
           </div>
           <div class="meta-item">
-            <span class="meta-icon">⏱️</span>
-            <span>{{ course.duration || 'N/A' }}</span>
+            <lucide-icon name="clock" [size]="16"></lucide-icon>
+            <span>{{ course.duration || 0 }} min</span>
           </div>
         </div>
 
         <div class="course-footer">
           <div class="instructor">
-            <span class="instructor-icon">👨‍🏫</span>
+            <lucide-icon name="user" [size]="20"></lucide-icon>
             <span>{{ course.instructor || 'Teacher' }}</span>
           </div>
-          <button 
-            class="btn-enroll"
-            (click)="enrollInCourse(course.id, $event)"
-          >
-            Enroll Now! ✨
-          </button>
+        <button 
+  *ngIf="!course.enrolled"
+  class="btn-enroll"
+  (click)="enrollInCourse(course.id, $event)"
+>
+  <lucide-icon name="plus" [size]="16"></lucide-icon>
+  <span>Enroll</span>
+</button>
+<div *ngIf="course.enrolled" class="enrolled-badge">
+  <lucide-icon name="check-circle" [size]="16"></lucide-icon>
+  <span>Enrolled</span>
+</div>
+
         </div>
       </div>
     </div>
 
     <div class="empty-state" *ngIf="filteredCourses.length === 0">
-      <div class="empty-icon">🔍</div>
+      <lucide-icon name="search" [size]="80" [strokeWidth]="1.5"></lucide-icon>
       <h3>No courses found</h3>
       <p>Try selecting a different category!</p>
     </div>
   </div>
 </div>
-

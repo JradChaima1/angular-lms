@@ -57,10 +57,6 @@
     font-size: 14px;
     color: #666;
 
-    .category-icon {
-      font-size: 20px;
-    }
-
     &:hover {
       border-color: #4ECDC4;
       transform: translateY(-2px);
@@ -103,12 +99,10 @@
   background: #FFE5E5;
   border-radius: 20px;
   border: 2px solid #FF6B6B;
-
-  .error-icon {
-    font-size: 48px;
-    display: block;
-    margin-bottom: 15px;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
 
   p {
     color: #D63031;
@@ -195,10 +189,6 @@
           gap: 6px;
           font-size: 13px;
           color: #666;
-
-          .meta-icon {
-            font-size: 16px;
-          }
         }
       }
 
@@ -216,10 +206,6 @@
           font-size: 13px;
           color: #666;
           font-weight: 600;
-
-          .instructor-icon {
-            font-size: 20px;
-          }
         }
 
         .btn-enroll {
@@ -232,11 +218,27 @@
           font-size: 13px;
           cursor: pointer;
           transition: all 0.3s;
+          display: flex;
+          align-items: center;
+          gap: 6px;
 
           &:hover {
             transform: scale(1.05);
             box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
           }
+        }
+
+        .enrolled-badge {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          padding: 10px 20px;
+          background: #4ECDC4;
+          color: white;
+          border-radius: 12px;
+          font-weight: 700;
+          font-size: 13px;
+          pointer-events: none;
         }
       }
     }
@@ -247,16 +249,12 @@
   grid-column: 1 / -1;
   text-align: center;
   padding: 60px 20px;
-
-  .empty-icon {
-    font-size: 80px;
-    margin-bottom: 20px;
-  }
+  color: #999;
 
   h3 {
     font-size: 24px;
     color: #333;
-    margin: 0 0 10px 0;
+    margin: 20px 0 10px 0;
   }
 
   p {

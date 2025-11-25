@@ -27,8 +27,8 @@ export class CourseService {
     return this.http.get<Lesson>(`${this.apiUrl}/courses/lessons/${lessonId}`);
   }
 
-  enrollInCourse(courseId: number): Observable<any> {
-    return this.http.post(`${this.apiUrl}/users/me/enrollments/${courseId}`, {});
+  enrollInCourse(courseId: number): Observable<void> {
+    return this.http.post<void>(`${this.apiUrl}/users/me/enrollments/${courseId}`, {});
   }
 
   getCoursesByCategory(category: string): Observable<Course[]> {

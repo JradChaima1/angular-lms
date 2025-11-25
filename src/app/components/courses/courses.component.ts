@@ -3,11 +3,13 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { CourseService } from '../../services/course.service';
 import { Course } from '../../models/course.model';
+import { IconsModule } from '../../shared/icons.module';
+import { ToastService } from '../../services/toast.service';
 
 @Component({
   selector: 'app-courses',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, IconsModule],
   templateUrl: './courses.component.html',
   styleUrl: './courses.component.scss'
 })
@@ -19,17 +21,18 @@ export class CoursesComponent implements OnInit {
   selectedCategory: string = 'all';
 
   categories = [
-    { value: 'all', label: 'All Courses', icon: '📚' },
-    { value: 'MATH', label: 'Math', icon: '🔢' },
-    { value: 'SCIENCE', label: 'Science', icon: '🔬' },
-    { value: 'READING', label: 'Reading', icon: '📖' },
-    { value: 'ART', label: 'Art', icon: '🎨' },
-    { value: 'MUSIC', label: 'Music', icon: '🎵' }
+    { value: 'all', label: 'All Courses', icon: 'book-open' },
+    { value: 'MATH', label: 'Math', icon: 'calculator' },
+    { value: 'SCIENCE', label: 'Science', icon: 'book' },
+    { value: 'READING', label: 'Reading', icon: 'book' },
+    { value: 'ART', label: 'Art', icon: 'palette' },
+    { value: 'MUSIC', label: 'Music', icon: 'music' }
   ];
 
   constructor(
     private courseService: CourseService,
-    private router: Router
+    private router: Router,
+    private toastService: ToastService
   ) {}
 
   ngOnInit(): void {
@@ -69,14 +72,26 @@ export class CoursesComponent implements OnInit {
 
   enrollInCourse(courseId: number, event: Event): void {
     event.stopPropagation();
+    
+    const course = this.courses.find(c => c.id === courseId);
+    if (course?.enrolled) {
+      this.toastService.info('You are already enrolled in this course!');
+      return;
+    }
+
     this.courseService.enrollInCourse(courseId).subscribe({
       next: () => {
-        alert('Successfully enrolled! 🎉');
-        this.loadCourses();
+        this.toastService.success('Successfully enrolled! 🎉');
+        const courseIndex = this.courses.findIndex(c => c.id === courseId);
+        if (courseIndex !== -1) {
+          this.courses[courseIndex].enrolled = true;
+        }
+        this.filterByCategory(this.selectedCategory);
       },
       error: (error) => {
-        alert('Failed to enroll. Please try again.');
-        console.error('Error enrolling:', error);
+        console.error('Enrollment error:', error);
+        const errorMsg = error.error?.message || 'Failed to enroll. Please try again.';
+        this.toastService.error(errorMsg);
       }
     });
   }
@@ -90,5 +105,9 @@ export class CoursesComponent implements OnInit {
       'MUSIC': '🎵'
     };
     return categoryMap[category] || '📚';
+  }
+
+  getLessonsCount(course: Course): number {
+    return course.lessonCount || course.lessons?.length || 0;
   }
 }

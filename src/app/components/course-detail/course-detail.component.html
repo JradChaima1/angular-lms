@@ -1,0 +1,129 @@
+<div class="course-detail" *ngIf="!isLoading && course">
+  <button class="btn-back" (click)="goBack()">
+    <lucide-icon name="arrow-left" [size]="20"></lucide-icon>
+    <span>Back to Courses</span>
+  </button>
+
+  <div class="course-hero">
+    <div class="hero-content">
+      <div class="course-icon-large">{{ getCourseIcon(course.category) }}</div>
+      <div class="hero-text">
+        <div class="course-category">{{ course.category }}</div>
+        <h1>{{ course.title }}</h1>
+        <p class="course-description">{{ course.description }}</p>
+        
+        <div class="course-meta">
+          <div class="meta-item">
+            <lucide-icon name="user" [size]="20"></lucide-icon>
+            <span>{{ course.instructor }}</span>
+          </div>
+          <div class="meta-item">
+            <lucide-icon name="file-text" [size]="20"></lucide-icon>
+            <span>{{ lessons.length }} Lessons</span>
+          </div>
+          <div class="meta-item">
+            <lucide-icon name="clock" [size]="20"></lucide-icon>
+            <span>{{ course.duration }} mins</span>
+          </div>
+          <div class="meta-item">
+            <lucide-icon name="bar-chart-3" [size]="20"></lucide-icon>
+            <span>{{ course.difficulty }}</span>
+          </div>
+        </div>
+
+        <button 
+          *ngIf="!course.enrolled" 
+          class="btn-enroll-large"
+          (click)="enrollInCourse()"
+        >
+          <lucide-icon name="plus" [size]="24"></lucide-icon>
+          <span>Enroll Now!</span>
+        </button>
+        <div *ngIf="course.enrolled" class="enrolled-badge">
+          <lucide-icon name="check-circle" [size]="24"></lucide-icon>
+          <span>You're Enrolled!</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="course-content">
+    <div class="lessons-sidebar">
+      <h2>
+        <lucide-icon name="book-open" [size]="24"></lucide-icon>
+        <span>Course Lessons</span>
+      </h2>
+      <div class="lessons-list">
+        <div 
+          *ngFor="let lesson of lessons; let i = index"
+          class="lesson-item"
+          [class.active]="selectedLesson?.id === lesson.id"
+          [class.completed]="lesson.completed"
+          (click)="selectLesson(lesson)"
+        >
+          <div class="lesson-number">{{ i + 1 }}</div>
+          <div class="lesson-info">
+            <h4>{{ lesson.title }}</h4>
+            <span class="lesson-duration">
+              <lucide-icon name="clock" [size]="14"></lucide-icon>
+              {{ lesson.duration }} min
+            </span>
+          </div>
+          <div class="lesson-status">
+            <lucide-icon *ngIf="lesson.completed" name="check-circle" [size]="20"></lucide-icon>
+            <lucide-icon *ngIf="!lesson.completed" name="lock" [size]="20"></lucide-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lesson-content">
+      <div *ngIf="!selectedLesson" class="no-lesson-selected">
+        <lucide-icon name="arrow-left" [size]="80" [strokeWidth]="1.5"></lucide-icon>
+        <h3>Select a lesson to start learning!</h3>
+        <p>Click on any lesson from the list to begin.</p>
+      </div>
+
+      <div *ngIf="selectedLesson" class="lesson-viewer">
+        <h2>{{ selectedLesson.title }}</h2>
+        
+        <div *ngIf="selectedLesson.videoUrl" class="video-container">
+          <div class="video-placeholder">
+            <lucide-icon name="video" [size]="60"></lucide-icon>
+            <p>Video Player</p>
+            <span>{{ selectedLesson.videoUrl }}</span>
+          </div>
+        </div>
+
+        <div class="lesson-text">
+          <p>{{ selectedLesson.content }}</p>
+        </div>
+
+        <div class="lesson-actions">
+          <button class="btn-complete">
+            <lucide-icon name="check-circle" [size]="20"></lucide-icon>
+            <span>Mark as Complete</span>
+          </button>
+          <button class="btn-quiz">
+            <lucide-icon name="play" [size]="20"></lucide-icon>
+            <span>Take Quiz</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="loading" *ngIf="isLoading">
+  <div class="spinner">⏳</div>
+  <p>Loading course...</p>
+</div>
+
+<div class="error-message" *ngIf="errorMessage && !isLoading">
+  <lucide-icon name="x" [size]="60"></lucide-icon>
+  <p>{{ errorMessage }}</p>
+  <button class="btn-back" (click)="goBack()">
+    <lucide-icon name="arrow-left" [size]="20"></lucide-icon>
+    <span>Go Back</span>
+  </button>
+</div>

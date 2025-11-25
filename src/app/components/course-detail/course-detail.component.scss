@@ -1,0 +1,421 @@
+lucide-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.course-detail {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.btn-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: white;
+  border: 2px solid #E8E8E8;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin-bottom: 20px;
+  font-size: 14px;
+  color: #333;
+
+  &:hover {
+    border-color: #4ECDC4;
+    transform: translateX(-5px);
+  }
+}
+
+.course-hero {
+  background: linear-gradient(135deg, #FF6B6B 0%, #4ECDC4 100%);
+  border-radius: 24px;
+  padding: 50px;
+  margin-bottom: 30px;
+  box-shadow: 0 8px 24px rgba(255, 107, 107, 0.3);
+
+  .hero-content {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+
+    .course-icon-large {
+      font-size: 120px;
+      background: white;
+      width: 180px;
+      height: 180px;
+      border-radius: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      flex-shrink: 0;
+    }
+
+    .hero-text {
+      flex: 1;
+      color: white;
+
+      .course-category {
+        display: inline-block;
+        background: white;
+        color: #FF6B6B;
+        padding: 6px 16px;
+        border-radius: 12px;
+        font-size: 13px;
+        font-weight: 700;
+        text-transform: uppercase;
+        margin-bottom: 15px;
+      }
+
+      h1 {
+        margin: 0 0 15px 0;
+        font-size: 42px;
+        font-weight: 800;
+        font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', cursive;
+      }
+
+      .course-description {
+        font-size: 18px;
+        margin-bottom: 25px;
+        opacity: 0.95;
+        line-height: 1.6;
+      }
+
+      .course-meta {
+        display: flex;
+        gap: 30px;
+        margin-bottom: 30px;
+        flex-wrap: wrap;
+
+        .meta-item {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          font-size: 16px;
+          font-weight: 600;
+        }
+      }
+
+      .btn-enroll-large {
+        padding: 18px 40px;
+        background: white;
+        color: #FF6B6B;
+        border: none;
+        border-radius: 16px;
+        font-size: 20px;
+        font-weight: 800;
+        cursor: pointer;
+        transition: all 0.3s;
+        font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', cursive;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+
+        &:hover {
+          transform: scale(1.05);
+          box-shadow: 0 8px 24px rgba(255, 255, 255, 0.3);
+        }
+      }
+
+      .enrolled-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 18px 40px;
+        background: #FFE66D;
+        color: #333;
+        border-radius: 16px;
+        font-size: 20px;
+        font-weight: 800;
+        font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', cursive;
+      }
+    }
+  }
+}
+
+.course-content {
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  gap: 30px;
+  min-height: 600px;
+}
+
+.lessons-sidebar {
+  background: white;
+  border-radius: 20px;
+  padding: 25px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  height: fit-content;
+  position: sticky;
+  top: 100px;
+
+  h2 {
+    margin: 0 0 20px 0;
+    font-size: 20px;
+    font-weight: 700;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .lessons-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    .lesson-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 15px;
+      background: #F9F9F9;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s;
+      border: 2px solid transparent;
+
+      &:hover {
+        background: #F0F0F0;
+        transform: translateX(5px);
+      }
+
+      &.active {
+        background: linear-gradient(90deg, #FF6B6B 0%, #4ECDC4 100%);
+        color: white;
+        border-color: transparent;
+
+        .lesson-number {
+          background: white;
+          color: #FF6B6B;
+        }
+      }
+
+      &.completed {
+        .lesson-number {
+          background: #4ECDC4;
+          color: white;
+        }
+      }
+
+      .lesson-number {
+        width: 35px;
+        height: 35px;
+        background: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 14px;
+        flex-shrink: 0;
+      }
+
+      .lesson-info {
+        flex: 1;
+        min-width: 0;
+
+        h4 {
+          margin: 0 0 5px 0;
+          font-size: 14px;
+          font-weight: 600;
+        }
+
+        .lesson-duration {
+          font-size: 12px;
+          opacity: 0.8;
+          display: flex;
+          align-items: center;
+          gap: 4px;
+        }
+      }
+
+      .lesson-status {
+        font-size: 20px;
+        flex-shrink: 0;
+      }
+    }
+  }
+}
+
+.lesson-content {
+  background: white;
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+  .no-lesson-selected {
+    text-align: center;
+    padding: 80px 20px;
+    color: #999;
+
+    h3 {
+      font-size: 24px;
+      color: #333;
+      margin: 20px 0 10px 0;
+    }
+
+    p {
+      color: #666;
+      font-size: 16px;
+    }
+  }
+
+  .lesson-viewer {
+    h2 {
+      margin: 0 0 30px 0;
+      font-size: 28px;
+      font-weight: 700;
+      color: #333;
+    }
+
+    .video-container {
+      margin-bottom: 30px;
+
+      .video-placeholder {
+        background: #F0F0F0;
+        border-radius: 16px;
+        padding: 80px 40px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        color: #666;
+
+        p {
+          font-size: 18px;
+          font-weight: 600;
+          margin: 0;
+        }
+
+        span {
+          font-size: 14px;
+          color: #999;
+        }
+      }
+    }
+
+    .lesson-text {
+      margin-bottom: 40px;
+      line-height: 1.8;
+      font-size: 16px;
+      color: #555;
+    }
+
+    .lesson-actions {
+      display: flex;
+      gap: 15px;
+
+      button {
+        padding: 16px 32px;
+        border: none;
+        border-radius: 12px;
+        font-size: 16px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        &.btn-complete {
+          background: #4ECDC4;
+          color: white;
+
+          &:hover {
+            background: #3DBDB3;
+            transform: translateY(-2px);
+          }
+        }
+
+        &.btn-quiz {
+          background: #FFE66D;
+          color: #333;
+
+          &:hover {
+            background: #FFD93D;
+            transform: translateY(-2px);
+          }
+        }
+      }
+    }
+  }
+}
+
+.loading {
+  text-align: center;
+  padding: 100px 20px;
+
+  .spinner {
+    font-size: 60px;
+    animation: spin 2s linear infinite;
+  }
+
+  p {
+    margin-top: 20px;
+    font-size: 18px;
+    color: #666;
+  }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.error-message {
+  text-align: center;
+  padding: 60px 40px;
+  background: #FFE5E5;
+  border-radius: 20px;
+  border: 2px solid #FF6B6B;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+
+  p {
+    color: #D63031;
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+  }
+}
+
+@media (max-width: 1024px) {
+  .course-content {
+    grid-template-columns: 1fr;
+  }
+
+  .lessons-sidebar {
+    position: static;
+  }
+
+  .course-hero .hero-content {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .course-hero {
+    padding: 30px 20px;
+
+    .hero-content {
+      .course-icon-large {
+        width: 120px;
+        height: 120px;
+        font-size: 80px;
+      }
+
+      .hero-text h1 {
+        font-size: 28px;
+      }
+    }
+  }
+}

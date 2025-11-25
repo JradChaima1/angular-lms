@@ -6,6 +6,11 @@
     </div>
     
     <div class="user-menu" *ngIf="currentUser">
+      <button class="icon-btn">
+        <lucide-icon name="bell" [size]="20"></lucide-icon>
+        <span class="badge">3</span>
+      </button>
+
       <div class="user-info">
         <span class="user-avatar">{{ currentUser.firstName?.charAt(0) }}{{ currentUser.lastName?.charAt(0) }}</span>
         <div class="user-details">
@@ -13,10 +18,11 @@
           <span class="user-role">{{ currentUser.role }}</span>
         </div>
       </div>
+
       <button class="btn-logout" (click)="logout()">
-        <span>🚪</span> Logout
+        <lucide-icon name="log-out" [size]="18"></lucide-icon>
+        <span>Logout</span>
       </button>
     </div>
   </div>
 </header>
-

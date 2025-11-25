@@ -32,7 +32,8 @@ export class AuthService {
   }
 
   getCurrentUser(): Observable<User> {
-    return this.http.get<User>(`${this.apiUrl}/api/users/me`);
+    return this.http.get<User>(`${this.apiUrl}/users/me`);
+
   }
 
   private fetchCurrentUser(): void {

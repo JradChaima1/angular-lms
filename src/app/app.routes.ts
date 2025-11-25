@@ -5,6 +5,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { LayoutComponent } from './components/layout/layout.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { CoursesComponent } from './components/courses/courses.component';
+import { CourseDetailComponent } from './components/course-detail/course-detail.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -17,6 +18,7 @@ export const routes: Routes = [
     children: [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'courses', component: CoursesComponent },
+      { path: 'courses/:id', component: CourseDetailComponent },
     ]
   },
   { path: '**', redirectTo: '/login' }

@@ -1,0 +1,6 @@
+<div class="toast-container" *ngIf="toast">
+  <div class="toast" [class]="'toast-' + toast.type">
+    <lucide-icon [name]="getIcon()" [size]="20"></lucide-icon>
+    <span>{{ toast.message }}</span>
+  </div>
+</div>
