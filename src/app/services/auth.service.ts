@@ -66,4 +66,13 @@ export class AuthService {
     localStorage.removeItem('token');
     this.currentUserSubject.next(null);
   }
+  updateProfile(profileData: { name: string; email: string }): Observable<User> {
+  return this.http.put<User>(`${this.apiUrl}/users/me`, profileData)
+    .pipe(
+      tap(user => {
+        this.currentUserSubject.next(user);
+      })
+    );
+}
+
 }

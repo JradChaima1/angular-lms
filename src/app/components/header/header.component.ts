@@ -30,4 +30,18 @@ export class HeaderComponent implements OnInit {
     this.authService.logout();
     this.router.navigate(['/login']);
   }
+
+  goToProfile(): void {
+  this.router.navigate(['/profile']);
+}
+getInitials(): string {
+  if (!this.currentUser?.name) return '?';
+  const names = this.currentUser.name.split(' ');
+  if (names.length >= 2) {
+    return (names[0][0] + names[names.length - 1][0]).toUpperCase();
+  }
+  return this.currentUser.name.substring(0, 2).toUpperCase();
+}
+
+
 }

@@ -8,6 +8,7 @@ import { CoursesComponent } from './components/courses/courses.component';
 import { CourseDetailComponent } from './components/course-detail/course-detail.component';
 import { QuizComponent } from './components/quiz/quiz.component';
 import { AchievementsComponent } from './components/achievements/achievements.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -24,6 +25,7 @@ export const routes: Routes = [
       { path: 'quiz/:lessonId', component: QuizComponent },
       { path: 'courses/:id', component: CourseDetailComponent },
       { path: 'achievements', component: AchievementsComponent },
+      { path: 'profile', component: ProfileComponent },
     ]
   },
   { path: '**', redirectTo: '/login' }

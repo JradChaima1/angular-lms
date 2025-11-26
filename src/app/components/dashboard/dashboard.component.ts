@@ -3,8 +3,10 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { CourseService } from '../../services/course.service';
+import { AchievementService } from '../../services/achievement.service';
 import { User } from '../../models/user.model';
 import { Course } from '../../models/course.model';
+import { Achievement } from '../../models/achievement.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,11 +18,13 @@ import { Course } from '../../models/course.model';
 export class DashboardComponent implements OnInit {
   currentUser: User | null = null;
   enrolledCourses: Course[] = [];
+  achievements: Achievement[] = [];
   isLoading: boolean = true;
 
   constructor(
     private authService: AuthService,
     private courseService: CourseService,
+    private achievementService: AchievementService,
     private router: Router
   ) {}
 
@@ -29,6 +33,7 @@ export class DashboardComponent implements OnInit {
       this.currentUser = user;
     });
     this.loadEnrolledCourses();
+    
   }
 
   loadEnrolledCourses(): void {
