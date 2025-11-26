@@ -1,0 +1,136 @@
+<div class="manage-courses">
+  <div class="page-header">
+    <div>
+      <h1>📚 Manage Courses</h1>
+      <p>Create, edit, and manage all courses</p>
+    </div>
+    <button class="btn-create" (click)="openCreateModal()">
+      <lucide-icon name="plus" [size]="20"></lucide-icon>
+      <span>Create Course</span>
+    </button>
+  </div>
+
+  <div *ngIf="isLoading" class="loading">
+    <div class="spinner">⏳</div>
+    <p>Loading courses...</p>
+  </div>
+
+  <div class="courses-grid" *ngIf="!isLoading">
+    <div *ngFor="let course of courses" class="course-card">
+      <div class="course-header">
+        <div class="course-icon">{{ getCategoryIcon(course.category) }}</div>
+        <div class="course-actions">
+          <button class="btn-icon" (click)="openEditModal(course)" title="Edit">
+            <lucide-icon name="edit-2" [size]="18"></lucide-icon>
+          </button>
+          <button class="btn-icon btn-delete" (click)="deleteCourse(course)" title="Delete">
+            <lucide-icon name="trash-2" [size]="18"></lucide-icon>
+          </button>
+        </div>
+      </div>
+
+      <div class="course-content">
+        <h3>{{ course.title }}</h3>
+        <p class="description">{{ course.description }}</p>
+
+        <div class="course-meta">
+          <span class="meta-item">
+            <lucide-icon name="book-open" [size]="16"></lucide-icon>
+            {{ course.lessonCount || 0 }} Lessons
+          </span>
+          <span class="meta-item">
+            <lucide-icon name="clock" [size]="16"></lucide-icon>
+            {{ course.duration }} min
+          </span>
+        </div>
+
+        <div class="course-tags">
+          <span class="tag tag-category">{{ course.category }}</span>
+          <span class="tag tag-difficulty" [class]="'tag-' + course.difficulty.toLowerCase()">
+            {{ course.difficulty }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Create/Edit Modal -->
+  <div class="modal-overlay" *ngIf="showModal" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>{{ isEditMode ? 'Edit Course' : 'Create New Course' }}</h2>
+        <button class="btn-close" (click)="closeModal()">
+          <lucide-icon name="x" [size]="24"></lucide-icon>
+        </button>
+      </div>
+
+      <form [formGroup]="courseForm" (ngSubmit)="saveCourse()">
+        <div class="form-group">
+          <label for="title">Course Title *</label>
+          <input
+            id="title"
+            type="text"
+            formControlName="title"
+            placeholder="Enter course title"
+          />
+          <div class="error" *ngIf="courseForm.get('title')?.invalid && courseForm.get('title')?.touched">
+            Title is required (min 3 characters)
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="description">Description *</label>
+          <textarea
+            id="description"
+            formControlName="description"
+            rows="4"
+            placeholder="Enter course description"
+          ></textarea>
+          <div class="error" *ngIf="courseForm.get('description')?.invalid && courseForm.get('description')?.touched">
+            Description is required (min 10 characters)
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="category">Category *</label>
+            <select id="category" formControlName="category">
+              <option value="">Select category</option>
+              <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="difficulty">Difficulty *</label>
+            <select id="difficulty" formControlName="difficulty">
+              <option value="">Select difficulty</option>
+              <option *ngFor="let diff of difficulties" [value]="diff">{{ diff }}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="duration">Duration (minutes) *</label>
+          <input
+            id="duration"
+            type="number"
+            formControlName="duration"
+            placeholder="Enter duration in minutes"
+            min="1"
+          />
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn-cancel" (click)="closeModal()" [disabled]="isSaving">
+            Cancel
+          </button>
+          <button type="submit" class="btn-save" [disabled]="courseForm.invalid || isSaving">
+            <span *ngIf="!isSaving">{{ isEditMode ? 'Update' : 'Create' }} Course</span>
+            <span *ngIf="isSaving">Saving...</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+

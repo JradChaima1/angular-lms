@@ -1,0 +1,71 @@
+<div class="admin-dashboard">
+  <div class="admin-header">
+    <h1>🛠️ Admin Dashboard</h1>
+    <p>Manage your learning management system</p>
+  </div>
+
+  <div *ngIf="isLoading" class="loading">
+    <div class="spinner">⏳</div>
+    <p>Loading dashboard...</p>
+  </div>
+
+  <div *ngIf="!isLoading">
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon" style="background: #667eea;">
+          <lucide-icon name="users" [size]="32"></lucide-icon>
+        </div>
+        <div class="stat-content">
+          <h3>{{ stats.totalUsers }}</h3>
+          <p>Total Users</p>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon" style="background: #f093fb;">
+          <lucide-icon name="book-open" [size]="32"></lucide-icon>
+        </div>
+        <div class="stat-content">
+          <h3>{{ stats.totalCourses }}</h3>
+          <p>Total Courses</p>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon" style="background: #4facfe;">
+          <lucide-icon name="user-check" [size]="32"></lucide-icon>
+        </div>
+        <div class="stat-content">
+          <h3>{{ stats.totalEnrollments }}</h3>
+          <p>Total Enrollments</p>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon" style="background: #43e97b;">
+          <lucide-icon name="help-circle" [size]="32"></lucide-icon>
+        </div>
+        <div class="stat-content">
+          <h3>{{ stats.totalQuizzes }}</h3>
+          <p>Total Quizzes</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="admin-menu">
+      <h2>Quick Actions</h2>
+      <div class="menu-grid">
+        <div 
+          *ngFor="let item of adminMenuItems"
+          class="menu-card"
+          (click)="navigateTo(item.route)"
+        >
+          <div class="menu-icon" [style.background]="item.color">
+            <lucide-icon [name]="item.icon" [size]="40"></lucide-icon>
+          </div>
+          <h3>{{ item.label }}</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
