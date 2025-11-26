@@ -81,6 +81,11 @@ constructor(
   goBack(): void {
     this.router.navigate(['/courses']);
   }
+  takeQuiz(): void {
+  if (this.selectedLesson) {
+    this.router.navigate(['/quiz', this.selectedLesson.id]);
+  }
+}
 
   getCourseIcon(category: string): string {
     const categoryMap: { [key: string]: string } = {

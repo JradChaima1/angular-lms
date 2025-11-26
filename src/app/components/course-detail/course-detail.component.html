@@ -104,10 +104,11 @@
             <lucide-icon name="check-circle" [size]="20"></lucide-icon>
             <span>Mark as Complete</span>
           </button>
-          <button class="btn-quiz">
-            <lucide-icon name="play" [size]="20"></lucide-icon>
-            <span>Take Quiz</span>
-          </button>
+       <button class="btn-quiz" (click)="takeQuiz()">
+  <lucide-icon name="play" [size]="20"></lucide-icon>
+  <span>Take Quiz</span>
+</button>
+
         </div>
       </div>
     </div>

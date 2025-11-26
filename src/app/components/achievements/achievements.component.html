@@ -1,0 +1,78 @@
+<div class="achievements-page">
+  <div class="page-header">
+    <h1>🏆 Achievements</h1>
+    <p>Track your learning milestones and earn rewards</p>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat">
+      <lucide-icon name="trophy" [size]="24"></lucide-icon>
+      <div class="stat-info">
+        <span class="stat-value">{{ getUnlockedCount() }}/{{ achievements.length }}</span>
+        <span class="stat-label">Unlocked</span>
+      </div>
+    </div>
+    <div class="stat">
+      <lucide-icon name="star" [size]="24"></lucide-icon>
+      <div class="stat-info">
+        <span class="stat-value">{{ getTotalPoints() }}</span>
+        <span class="stat-label">Total Points</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="category-filters">
+    <button
+      *ngFor="let category of categories"
+      class="filter-btn"
+      [class.active]="selectedCategory === category.value"
+      (click)="filterByCategory(category.value)"
+    >
+      <lucide-icon [name]="category.icon" [size]="18"></lucide-icon>
+      <span>{{ category.label }}</span>
+    </button>
+  </div>
+
+  <div *ngIf="isLoading" class="loading">
+    <div class="spinner">⏳</div>
+    <p>Loading achievements...</p>
+  </div>
+
+  <div class="achievements-grid" *ngIf="!isLoading">
+    <div
+      *ngFor="let achievement of getFilteredAchievements()"
+      class="achievement-card"
+      [class.unlocked]="achievement.unlocked"
+      [class.locked]="!achievement.unlocked"
+    >
+      <div class="achievement-icon">{{ achievement.icon }}</div>
+      <div class="achievement-content">
+        <h3>{{ achievement.name }}</h3>
+        <p class="description">{{ achievement.description }}</p>
+        
+        <div class="progress-section" *ngIf="!achievement.unlocked">
+          <div class="progress-bar">
+            <div 
+              class="progress-fill" 
+              [style.width.%]="getProgressPercentage(achievement)"
+            ></div>
+          </div>
+          <span class="progress-text">
+            {{ achievement.currentProgress }}/{{ achievement.requiredCount }}
+          </span>
+        </div>
+
+        <div class="unlocked-badge" *ngIf="achievement.unlocked">
+          <lucide-icon name="check-circle" [size]="16"></lucide-icon>
+          <span>Unlocked {{ achievement.unlockedAt | date:'short' }}</span>
+        </div>
+
+        <div class="points-badge">
+          <lucide-icon name="star" [size]="14"></lucide-icon>
+          <span>{{ achievement.points }} pts</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

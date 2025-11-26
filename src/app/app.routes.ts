@@ -6,11 +6,14 @@ import { LayoutComponent } from './components/layout/layout.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { CoursesComponent } from './components/courses/courses.component';
 import { CourseDetailComponent } from './components/course-detail/course-detail.component';
+import { QuizComponent } from './components/quiz/quiz.component';
+import { AchievementsComponent } from './components/achievements/achievements.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+
   {
     path: '',
     component: LayoutComponent,
@@ -18,7 +21,9 @@ export const routes: Routes = [
     children: [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'courses', component: CoursesComponent },
+      { path: 'quiz/:lessonId', component: QuizComponent },
       { path: 'courses/:id', component: CourseDetailComponent },
+      { path: 'achievements', component: AchievementsComponent },
     ]
   },
   { path: '**', redirectTo: '/login' }

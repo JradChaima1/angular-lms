@@ -1,0 +1,175 @@
+<div class="quiz-container" *ngIf="!isLoading">
+  
+  <div class="quiz-header" *ngIf="!showResults">
+    <button class="btn-back" (click)="goBack()">
+      <lucide-icon name="arrow-left" [size]="20"></lucide-icon>
+      <span>Back</span>
+    </button>
+    
+    <div class="quiz-info">
+      <h1>{{ quiz?.title }}</h1>
+      <div class="quiz-meta">
+        <span class="meta-item">
+          <lucide-icon name="file-text" [size]="18"></lucide-icon>
+          {{ quiz?.questions?.length || 0 }} Questions
+
+        </span>
+        <span class="meta-item" *ngIf="quiz?.timeLimit">
+          <lucide-icon name="clock" [size]="18"></lucide-icon>
+          {{ getTimeFormatted() }}
+        </span>
+      </div>
+    </div>
+  </div>
+
+ 
+  <div class="quiz-progress" *ngIf="!showResults">
+    <div class="progress-bar">
+      <div class="progress-fill" [style.width.%]="getProgressPercentage()"></div>
+    </div>
+    <p class="progress-text">
+      Question {{ currentQuestionIndex + 1 }} of {{ quiz?.questions?.length || 0 }}
+
+    </p>
+  </div>
+
+
+  <div class="question-section" *ngIf="!showResults && quiz">
+    <div class="question-card">
+      <h2 class="question-text">
+        {{ quiz.questions[currentQuestionIndex].questionText }}
+      </h2>
+
+      <div class="options-list">
+        <div 
+          *ngFor="let option of quiz.questions[currentQuestionIndex].options; let i = index"
+          class="option-item"
+          [class.selected]="selectedAnswers[currentQuestionIndex] === i"
+          (click)="selectAnswer(i)"
+        >
+          <div class="option-radio">
+            <div class="radio-dot" *ngIf="selectedAnswers[currentQuestionIndex] === i"></div>
+          </div>
+          <span class="option-text">{{ option }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="quiz-navigation">
+      <button 
+        class="btn-nav btn-previous"
+        [disabled]="currentQuestionIndex === 0"
+        (click)="previousQuestion()"
+      >
+        <lucide-icon name="chevron-left" [size]="20"></lucide-icon>
+        <span>Previous</span>
+      </button>
+
+      <div class="question-dots">
+        <div 
+          *ngFor="let q of quiz.questions; let i = index"
+          class="question-dot"
+          [class.active]="i === currentQuestionIndex"
+          [class.answered]="selectedAnswers[i] !== -1"
+          (click)="goToQuestion(i)"
+        ></div>
+      </div>
+
+      <button 
+        *ngIf="currentQuestionIndex < quiz.questions.length - 1"
+        class="btn-nav btn-next"
+        (click)="nextQuestion()"
+      >
+        <span>Next</span>
+        <lucide-icon name="chevron-right" [size]="20"></lucide-icon>
+      </button>
+
+      <button 
+        *ngIf="currentQuestionIndex === quiz.questions.length - 1"
+        class="btn-submit"
+        [disabled]="!canSubmit() || isSubmitting"
+        (click)="submitQuiz()"
+      >
+        <lucide-icon name="check-circle" [size]="20"></lucide-icon>
+        <span *ngIf="!isSubmitting">Submit Quiz</span>
+        <span *ngIf="isSubmitting">Submitting...</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="results-section" *ngIf="showResults && quizResult">
+    <div class="results-card">
+      <div class="results-header" [class.passed]="quizResult.passed" [class.failed]="!quizResult.passed">
+        <div class="result-icon">
+          {{ quizResult.passed ? '🎉' : '📚' }}
+        </div>
+        <h2>{{ quizResult.passed ? 'Congratulations!' : 'Keep Learning!' }}</h2>
+        <p>{{ quizResult.passed ? 'You passed the quiz!' : 'You can try again!' }}</p>
+      </div>
+
+      <div class="results-stats">
+        <div class="stat-item">
+          <div class="stat-value">{{ quizResult.score }}%</div>
+          <div class="stat-label">Score</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">{{ quizResult.correctAnswers }}/{{ quizResult.totalQuestions }}</div>
+          <div class="stat-label">Correct</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">{{ quizResult.passed ? 'Pass' : 'Fail' }}</div>
+          <div class="stat-label">Result</div>
+        </div>
+      </div>
+
+      <div class="results-details">
+        <h3>Question Review</h3>
+        <div 
+          *ngFor="let answer of quizResult.answers; let i = index"
+          class="answer-review"
+          [class.correct]="answer.isCorrect"
+          [class.incorrect]="!answer.isCorrect"
+        >
+          <div class="review-header">
+            <span class="question-number">Question {{ i + 1 }}</span>
+            <lucide-icon 
+              [name]="answer.isCorrect ? 'check-circle' : 'x'" 
+              [size]="20"
+            ></lucide-icon>
+          </div>
+          <p class="review-question">{{ answer.questionText }}</p>
+          <div class="review-answers">
+            <p class="your-answer" [class.wrong]="!answer.isCorrect">
+              Your answer: {{ quiz?.questions?.[i]?.options?.[answer.userAnswer] || 'N/A' }}
+
+            </p>
+            <p class="correct-answer" *ngIf="!answer.isCorrect">
+             Correct answer: {{ quiz?.questions?.[i]?.options?.[answer.correctAnswer] || 'N/A' }}
+
+            </p>
+          </div>
+          <p class="explanation" *ngIf="answer.explanation">
+            💡 {{ answer.explanation }}
+          </p>
+        </div>
+      </div>
+
+      <div class="results-actions">
+        <button class="btn-retake" (click)="retakeQuiz()">
+          <lucide-icon name="play" [size]="20"></lucide-icon>
+          <span>Retake Quiz</span>
+        </button>
+        <button class="btn-back-course" (click)="goBack()">
+          <lucide-icon name="arrow-left" [size]="20"></lucide-icon>
+          <span>Back to Course</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="loading" *ngIf="isLoading">
+  <div class="spinner">⏳</div>
+  <p>Loading quiz...</p>
+</div>

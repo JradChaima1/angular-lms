@@ -34,6 +34,7 @@ export class DashboardComponent implements OnInit {
   loadEnrolledCourses(): void {
     this.courseService.getMyEnrolledCourses().subscribe({
       next: (courses) => {
+        console.log('Loaded courses with progress:', courses); 
         this.enrolledCourses = courses;
         this.isLoading = false;
       },

@@ -35,6 +35,10 @@ export class AuthService {
     return this.http.get<User>(`${this.apiUrl}/users/me`);
 
   }
+  getCurrentUserId(): number | null {
+  return this.currentUserSubject.value?.id || null;
+}
+
 
   private fetchCurrentUser(): void {
     this.getCurrentUser().subscribe({
