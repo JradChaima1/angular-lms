@@ -12,7 +12,7 @@ import { AchievementsComponent } from './components/achievements/achievements.co
 import { ProfileComponent } from './components/profile/profile.component';
 import { AdminDashboardComponent } from './components/admin/admin-dashboard/admin-dashboard.component';
 import { ManageCoursesComponent } from './components/admin/manage-courses/manage-courses.component';
-
+import { ManageUsersComponent } from './components/admin/manage-users/manage-users.component';
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
@@ -28,14 +28,15 @@ export const routes: Routes = [
       { path: 'courses/:id', component: CourseDetailComponent },
       { path: 'achievements', component: AchievementsComponent },
       { path: 'profile', component: ProfileComponent },
-      // Add admin routes here
+      
       {
         path: 'admin',
         canActivate: [adminGuard],
         children: [
           { path: '', component: AdminDashboardComponent },
           { path: 'dashboard', component: AdminDashboardComponent },
-          { path: 'courses', component: ManageCoursesComponent } 
+          { path: 'courses', component: ManageCoursesComponent },
+          { path: 'users', component: ManageUsersComponent }
         ]
       }
     ]

@@ -1,0 +1,147 @@
+<div class="manage-users">
+  <div class="page-header">
+    <div>
+      <h1>👥 Manage Users</h1>
+      <p>View and manage all system users</p>
+    </div>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat">
+      <lucide-icon name="users" [size]="24"></lucide-icon>
+      <div>
+        <span class="stat-value">{{ getUserCount() }}</span>
+        <span class="stat-label">Total Users</span>
+      </div>
+    </div>
+    <div class="stat">
+      <lucide-icon name="shield" [size]="24"></lucide-icon>
+      <div>
+        <span class="stat-value">{{ getAdminCount() }}</span>
+        <span class="stat-label">Admins</span>
+      </div>
+    </div>
+    <div class="stat">
+      <lucide-icon name="user" [size]="24"></lucide-icon>
+      <div>
+        <span class="stat-value">{{ getStudentCount() }}</span>
+        <span class="stat-label">Students</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="filters-bar">
+    <div class="search-box">
+      <lucide-icon name="search" [size]="20"></lucide-icon>
+      <input
+        type="text"
+        [(ngModel)]="searchTerm"
+        placeholder="Search by name or email..."
+      />
+    </div>
+
+    <div class="filter-buttons">
+      <button
+        class="filter-btn"
+        [class.active]="filterRole === 'ALL'"
+        (click)="filterRole = 'ALL'"
+      >
+        All
+      </button>
+      <button
+        class="filter-btn"
+        [class.active]="filterRole === 'ADMIN'"
+        (click)="filterRole = 'ADMIN'"
+      >
+        Admins
+      </button>
+      <button
+        class="filter-btn"
+        [class.active]="filterRole === 'STUDENT'"
+        (click)="filterRole = 'STUDENT'"
+      >
+        Students
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="isLoading" class="loading">
+    <div class="spinner">⏳</div>
+    <p>Loading users...</p>
+  </div>
+
+  <div class="users-table" *ngIf="!isLoading">
+    <table>
+      <thead>
+        <tr>
+          <th>User</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of getFilteredUsers()">
+          <td>
+            <div class="user-cell">
+              <div class="user-avatar">{{ getInitials(user.name) }}</div>
+              <span class="user-name">{{ user.name }}</span>
+            </div>
+          </td>
+          <td>{{ user.email }}</td>
+          <td>
+            <span class="role-badge" [ngClass]="getRoleBadgeClass(user.role)">
+              {{ user.role }}
+            </span>
+          </td>
+          <td>
+  <button
+    *ngIf="user.role !== 'ADMIN'"
+    class="btn-delete"
+    (click)="openDeleteModal(user)"
+    title="Delete user"
+     >
+<lucide-icon name="trash-2" [size]="18"></lucide-icon>
+  </button>
+  <span *ngIf="user.role === 'ADMIN'" class="protected-badge">
+    <lucide-icon name="shield" [size]="16"></lucide-icon>
+    Protected
+    </span>
+   </td>
+
+        </tr>
+      </tbody>
+    </table>
+
+    <div *ngIf="getFilteredUsers().length === 0" class="empty-state">
+      <lucide-icon name="users" [size]="48"></lucide-icon>
+      <p>No users found</p>
+    </div>
+  </div>
+
+  <!-- Delete Confirmation Modal -->
+  <div class="modal-overlay" *ngIf="showDeleteModal" (click)="closeDeleteModal()">
+    <div class="modal-content modal-delete" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <div class="delete-icon">⚠️</div>
+        <h2>Delete User</h2>
+      </div>
+
+      <div class="modal-body">
+        <p>Are you sure you want to delete <strong>"{{ userToDelete?.name }}"</strong>?</p>
+        <p class="warning-text">This action cannot be undone. All user data, enrollments, and quiz attempts will be permanently deleted.</p>
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" class="btn-cancel" (click)="closeDeleteModal()">
+          Cancel
+        </button>
+        <button type="button" class="btn-delete-confirm" (click)="confirmDelete()">
+          <lucide-icon name="trash-2" [size]="18"></lucide-icon>
+          <span>Delete User</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+

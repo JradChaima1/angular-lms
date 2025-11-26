@@ -21,6 +21,9 @@ export class ManageCoursesComponent implements OnInit {
   isSaving: boolean = false;
   courseForm: FormGroup;
   selectedCourse: Course | null = null;
+  showDeleteModal: boolean = false;
+  courseToDelete: Course | null = null;
+
 
   difficulties = ['BEGINNER', 'INTERMEDIATE', 'ADVANCED'];
   categories = ['Programming', 'Web Development', 'Math', 'Science', 'Reading', 'Art', 'Music'];
@@ -124,22 +127,32 @@ export class ManageCoursesComponent implements OnInit {
     }
   }
 
-  deleteCourse(course: Course): void {
-    if (!confirm(`Are you sure you want to delete "${course.title}"? This action cannot be undone.`)) {
-      return;
-    }
+ openDeleteModal(course: Course): void {
+  this.courseToDelete = course;
+  this.showDeleteModal = true;
+}
 
-    this.adminService.deleteCourse(course.id).subscribe({
-      next: () => {
-        this.toastService.success('Course deleted successfully');
-        this.loadCourses();
-      },
-      error: (error) => {
-        this.toastService.error('Failed to delete course');
-        console.error('Error deleting course:', error);
-      }
-    });
-  }
+closeDeleteModal(): void {
+  this.showDeleteModal = false;
+  this.courseToDelete = null;
+}
+
+confirmDelete(): void {
+  if (!this.courseToDelete) return;
+
+  this.adminService.deleteCourse(this.courseToDelete.id).subscribe({
+    next: () => {
+      this.toastService.success('Course deleted successfully');
+      this.loadCourses();
+      this.closeDeleteModal();
+    },
+    error: (error) => {
+      this.toastService.error('Failed to delete course');
+      console.error('Error deleting course:', error);
+    }
+  });
+}
+
 
   getCategoryIcon(category: string): string {
     const icons: { [key: string]: string } = {

@@ -1,0 +1,352 @@
+.manage-users {
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.page-header {
+  margin-bottom: 2rem;
+
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    color: #1a1a1a;
+  }
+
+  p {
+    color: #666;
+  }
+}
+
+.stats-bar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+
+  .stat {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    lucide-icon {
+      color: #667eea;
+    }
+
+    .stat-value {
+      display: block;
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #1a1a1a;
+    }
+
+    .stat-label {
+      display: block;
+      font-size: 0.85rem;
+      color: #666;
+    }
+  }
+}
+
+.filters-bar {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+
+  .search-box {
+    flex: 1;
+    min-width: 300px;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    background: white;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    transition: border-color 0.3s;
+
+    &:focus-within {
+      border-color: #667eea;
+    }
+
+    lucide-icon {
+      color: #666;
+    }
+
+    input {
+      flex: 1;
+      border: none;
+      outline: none;
+      font-size: 1rem;
+    }
+  }
+
+  .filter-buttons {
+    display: flex;
+    gap: 0.5rem;
+
+    .filter-btn {
+      padding: 0.75rem 1.5rem;
+      background: white;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s;
+
+      &:hover {
+        border-color: #667eea;
+        color: #667eea;
+      }
+
+      &.active {
+        background: #667eea;
+        color: white;
+        border-color: #667eea;
+      }
+    }
+  }
+}
+
+.loading {
+  text-align: center;
+  padding: 3rem;
+
+  .spinner {
+    font-size: 3rem;
+    animation: spin 2s linear infinite;
+  }
+}
+
+.users-table {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+
+    thead {
+      background: #f5f5f5;
+
+      th {
+        padding: 1rem;
+        text-align: left;
+        font-weight: 600;
+        color: #666;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+      }
+    }
+
+    tbody {
+      tr {
+        border-bottom: 1px solid #e0e0e0;
+        transition: background 0.3s;
+
+        &:hover {
+          background: #f9f9f9;
+        }
+
+        &:last-child {
+          border-bottom: none;
+        }
+
+        td {
+          padding: 1rem;
+
+          .user-cell {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+
+            .user-avatar {
+              width: 40px;
+              height: 40px;
+              border-radius: 50%;
+              background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+              color: white;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              font-weight: bold;
+              font-size: 0.9rem;
+            }
+
+            .user-name {
+              font-weight: 500;
+              color: #1a1a1a;
+            }
+          }
+
+          .role-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+
+            &.role-admin {
+              background: #ffebee;
+              color: #f44336;
+            }
+
+            &.role-student {
+              background: #e3f2fd;
+              color: #1976d2;
+            }
+          }
+
+          .btn-delete {
+            padding: 0.5rem;
+            background: #f5f5f5;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+
+            &:hover {
+              background: #ff6b6b;
+              color: white;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 3rem;
+    color: #666;
+
+    lucide-icon {
+      margin-bottom: 1rem;
+      opacity: 0.5;
+    }
+  }
+}
+
+// Modal styles (reuse from manage-courses)
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.modal-delete {
+  .modal-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 2rem 1.5rem 1rem;
+
+    .delete-icon {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+    }
+
+    h2 {
+      color: #f44336;
+    }
+  }
+
+  .modal-body {
+    padding: 1.5rem;
+    text-align: center;
+
+    p {
+      margin-bottom: 1rem;
+      color: #666;
+      line-height: 1.6;
+
+      strong {
+        color: #1a1a1a;
+      }
+    }
+
+    .warning-text {
+      background: #fff3e0;
+      padding: 1rem;
+      border-radius: 8px;
+      border-left: 4px solid #ff9800;
+      color: #e65100;
+      font-size: 0.9rem;
+    }
+  }
+
+  .modal-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    padding: 1.5rem;
+    border-top: 1px solid #e0e0e0;
+
+    button {
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .btn-cancel {
+      background: #e0e0e0;
+      color: #333;
+
+      &:hover {
+        background: #d0d0d0;
+      }
+    }
+
+    .btn-delete-confirm {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #f44336;
+      color: white;
+
+      &:hover {
+        background: #d32f2f;
+      }
+    }
+  }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.protected-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.5rem 0.75rem;
+  background: #e8f5e9;
+  color: #4caf50;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
