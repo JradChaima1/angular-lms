@@ -45,7 +45,7 @@ export interface CreateQuestionRequest {
   providedIn: 'root'
 })
 export class AdminService {
-  private apiUrl = 'http://localhost:8080/api/admin';
+  private apiUrl = 'https://lms-backend-1-9lds.onrender.com/api/admin'; // Update with your Render URL
 
   constructor(private http: HttpClient) {}
 

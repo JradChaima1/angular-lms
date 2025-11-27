@@ -7,7 +7,7 @@ import { Course, Lesson } from '../models/course.model';
   providedIn: 'root'
 })
 export class CourseService {
-  private apiUrl = 'http://localhost:8080/api';
+  private apiUrl = 'https://lms-backend-1-9lds.onrender.com/api'; // Update with your Render URL
 
   constructor(private http: HttpClient) {}
 

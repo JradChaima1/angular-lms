@@ -7,7 +7,7 @@ import { User, LoginRequest, RegisterRequest, AuthResponse } from '../models/use
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:8080/api';
+  private apiUrl = 'https://lms-backend-1-9lds.onrender.com/api'; // Update with your Render URL
   private currentUserSubject = new BehaviorSubject<User | null>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
 
