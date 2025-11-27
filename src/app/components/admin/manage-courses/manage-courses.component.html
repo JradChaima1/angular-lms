@@ -11,14 +11,17 @@
   </div>
 
   <div *ngIf="isLoading" class="loading">
-    <div class="spinner">⏳</div>
+    <div class="spinner"> <img src="assets/loading.png" alt="loading" /></div>
     <p>Loading courses...</p>
   </div>
 
   <div class="courses-grid" *ngIf="!isLoading">
     <div *ngFor="let course of courses" class="course-card">
       <div class="course-header">
-        <div class="course-icon">{{ getCategoryIcon(course.category) }}</div>
+        <div class="course-icon">
+          <img *ngIf="course.imageUrl" [src]="course.imageUrl | imageUrl" [alt]="course.title" />
+          <span *ngIf="!course.imageUrl">{{ getCategoryIcon(course.category) }}</span>
+        </div>
         <div class="course-actions">
           <button class="btn-icon btn-delete" (click)="  openEditModal(course)" title="Delete">
             <lucide-icon name="edit-2" [size]="18"></lucide-icon>
@@ -118,6 +121,30 @@
             placeholder="Enter duration in minutes"
             min="1"
           />
+        </div>
+
+        <div class="form-group">
+          <label for="imageFile">Course Image</label>
+          <div class="file-upload-container">
+            <input
+              type="file"
+              id="imageFile"
+              accept="image/*"
+              (change)="onFileSelected($event)"
+              #fileInput
+            />
+            <button type="button" class="btn-upload" (click)="fileInput.click()">
+              <lucide-icon name="upload" [size]="18"></lucide-icon>
+              <span>Choose Image</span>
+            </button>
+            <span class="file-name" *ngIf="selectedFile">{{ selectedFile.name }}</span>
+          </div>
+          
+          <div class="image-preview" *ngIf="imagePreview">
+            <img [src]="imagePreview" alt="Preview" />
+          </div>
+          
+          <small>Upload an image file (JPG, PNG, etc.)</small>
         </div>
 
         <div class="modal-actions">

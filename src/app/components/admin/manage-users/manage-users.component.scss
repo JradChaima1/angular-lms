@@ -117,9 +117,18 @@
   padding: 3rem;
 
   .spinner {
-    font-size: 3rem;
-    animation: spin 2s linear infinite;
+  width: 80px;
+  height: 80px;
+  animation: spin 2s linear infinite;
+  display: inline-block;
+  
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
   }
+}
+
 }
 
 .users-table {

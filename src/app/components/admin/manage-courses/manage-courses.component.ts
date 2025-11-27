@@ -5,11 +5,12 @@ import { AdminService } from '../../../services/admin.service';
 import { ToastService } from '../../../services/toast.service';
 import { Course } from '../../../models/course.model';
 import { IconsModule } from '../../../shared/icons.module';
+import { ImageUrlPipe } from '../../../pipes/image-url.pipe';
 
 @Component({
   selector: 'app-manage-courses',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, IconsModule],
+  imports: [CommonModule, ReactiveFormsModule, IconsModule, ImageUrlPipe],
   templateUrl: './manage-courses.component.html',
   styleUrl: './manage-courses.component.scss'
 })
@@ -23,7 +24,9 @@ export class ManageCoursesComponent implements OnInit {
   selectedCourse: Course | null = null;
   showDeleteModal: boolean = false;
   courseToDelete: Course | null = null;
-
+  selectedFile: File | null = null;
+  imagePreview: string | null = null;
+  isUploading: boolean = false;
 
   difficulties = ['BEGINNER', 'INTERMEDIATE', 'ADVANCED'];
   categories = ['Programming', 'Web Development', 'Math', 'Science', 'Reading', 'Art', 'Music'];
@@ -38,7 +41,8 @@ export class ManageCoursesComponent implements OnInit {
       description: ['', [Validators.required, Validators.minLength(10)]],
       category: ['', Validators.required],
       difficulty: ['', Validators.required],
-      duration: [0, [Validators.required, Validators.min(1)]]
+      duration: [0, [Validators.required, Validators.min(1)]],
+      imageUrl: ['']
     });
   }
 
@@ -76,7 +80,8 @@ export class ManageCoursesComponent implements OnInit {
       description: course.description,
       category: course.category,
       difficulty: course.difficulty,
-      duration: course.duration
+      duration: course.duration,
+      imageUrl: course.imageUrl || ''
     });
     this.showModal = true;
   }
@@ -85,16 +90,77 @@ export class ManageCoursesComponent implements OnInit {
     this.showModal = false;
     this.courseForm.reset();
     this.selectedCourse = null;
+    this.selectedFile = null;
+    this.imagePreview = null;
   }
 
-  saveCourse(): void {
+  onFileSelected(event: any): void {
+    const file = event.target.files[0];
+    if (file) {
+      this.selectedFile = file;
+      
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.imagePreview = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  uploadImage(): Promise<string> {
+    return new Promise((resolve, reject) => {
+      if (!this.selectedFile) {
+        resolve('');
+        return;
+      }
+
+      this.isUploading = true;
+      const formData = new FormData();
+      formData.append('file', this.selectedFile);
+
+      this.adminService.uploadCourseImage(formData).subscribe({
+        next: (response: any) => {
+          this.isUploading = false;
+          resolve(response.imageUrl);
+        },
+        error: (error) => {
+          this.isUploading = false;
+          this.toastService.error('Failed to upload image');
+          reject(error);
+        }
+      });
+    });
+  }
+
+  async saveCourse(): Promise<void> {
     if (this.courseForm.invalid) {
       this.toastService.warning('Please fill in all required fields');
       return;
     }
 
     this.isSaving = true;
-    const courseData = this.courseForm.value;
+    
+    let imageUrl = this.courseForm.get('imageUrl')?.value || '';
+    console.log('Initial imageUrl from form:', imageUrl);
+    console.log('Selected file:', this.selectedFile);
+    
+    if (this.selectedFile) {
+      try {
+        imageUrl = await this.uploadImage();
+        console.log('Uploaded image URL:', imageUrl);
+      } catch (error) {
+        console.error('Upload error:', error);
+        this.isSaving = false;
+        return;
+      }
+    }
+
+    const courseData = {
+      ...this.courseForm.value,
+      imageUrl: imageUrl
+    };
+    
+    console.log('Course data being sent:', courseData);
 
     if (this.isEditMode && this.selectedCourse) {
       this.adminService.updateCourse(this.selectedCourse.id, courseData).subscribe({

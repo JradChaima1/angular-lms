@@ -35,8 +35,18 @@
   }
 
   .welcome-emoji {
-    font-size: 80px;
+    width: 180px;
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     animation: float 3s ease-in-out infinite;
+    
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
   }
 }
 
@@ -75,7 +85,13 @@
       justify-content: center;
       background: #F9F9F9;
       border-radius: 16px;
+      img{
+        object-fit: contain;
+        width: 100%;
+        height: 100%;
+      }
     }
+    
 
     .stat-info {
       h3 {
@@ -131,6 +147,12 @@
       align-items: center;
       justify-content: center;
       font-size: 80px;
+
+      .course-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
     }
 
     .course-info {
@@ -219,7 +241,14 @@
     }
 
     .welcome-emoji {
-      font-size: 50px;
+      width: 100px;
+      height: 100px;
+      
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
     }
   }
 
@@ -236,8 +265,14 @@
   padding: 60px 20px;
 
   .empty-icon {
-    font-size: 80px;
-    margin-bottom: 20px;
+   width: 100px;
+   height: 100px;
+   display: inline-block;
+      img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
   }
 
   h3 {
@@ -275,9 +310,18 @@
   padding: 60px 20px;
 
   .spinner {
-    font-size: 60px;
-    animation: spin 2s linear infinite;
+  width: 80px;
+  height: 80px;
+  animation: spin 2s linear infinite;
+  display: inline-block;
+  
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
   }
+}
+
 
   p {
     margin-top: 20px;

@@ -1,15 +1,20 @@
 <div class="dashboard">
   <div class="welcome-section">
     <div class="welcome-text">
-      <h1>Welcome Back, <span class="highlight" *ngIf="currentUser">{{ currentUser.firstName }}</span>! 🎉</h1>
+      <h1>Welcome Back, <span class="highlight" *ngIf="currentUser">{{ currentUser.firstName }}</span>! </h1>
       <p>Ready to continue your learning adventure?</p>
     </div>
-    <div class="welcome-emoji">🚀</div>
+    <div class="welcome-emoji">
+  <img src="assets/spaceship2.png" alt="Spaceship" />
+</div>
+
   </div>
 
   <div class="stats-grid">
     <div class="stat-card">
-      <div class="stat-icon">📚</div>
+      <div class="stat-icon">
+        <img src="assets/books.png" alt="Books" />
+      </div>
       <div class="stat-info">
         <h3>{{ getEnrolledCount() }}</h3>
         <p>Enrolled Courses</p>
@@ -17,7 +22,9 @@
     </div>
 
     <div class="stat-card">
-      <div class="stat-icon">✅</div>
+      <div class="stat-icon">
+       <img src="assets/completed.png" alt="Completed" />
+    </div>
       <div class="stat-info">
         <h3>{{ getCompletedCount() }}</h3>
         <p>Completed</p>
@@ -25,32 +32,30 @@
     </div>
 
     <div class="stat-card">
-      <div class="stat-icon">📖</div>
+        <div class="stat-icon">
+       <img src="assets/progress.png" alt="progress" />
+       </div>
       <div class="stat-info">
         <h3>{{ getInProgressCount() }}</h3>
         <p>In Progress</p>
       </div>
     </div>
 
-    <div class="stat-card">
-      <div class="stat-icon">🔥</div>
-      <div class="stat-info">
-        <h3>7</h3>
-        <p>Day Streak</p>
-      </div>
-    </div>
+   
   </div>
 
   <div class="content-section">
-    <h2>Continue Learning 📖</h2>
+    <h2>Continue Learning </h2>
     
     <div *ngIf="isLoading" class="loading">
-      <div class="spinner">⏳</div>
+      <div class="spinner">
+        <img src="assets/loading.png" alt="loading" />
+      </div>
       <p>Loading your courses...</p>
     </div>
 
     <div *ngIf="!isLoading && enrolledCourses.length === 0" class="empty-state">
-      <div class="empty-icon">📚</div>
+      <div class="empty-icon"><img src="assets/books.png" alt="loading" /></div>
       <h3>No enrolled courses yet</h3>
       <p>Start learning by enrolling in a course!</p>
       <button class="btn-browse" (click)="viewCourse(0)">
@@ -64,7 +69,10 @@
         class="course-card"
         (click)="viewCourse(course.id)"
       >
-        <div class="course-thumbnail">{{ getCourseIcon(course.category) }}</div>
+        <div class="course-thumbnail">
+          <img *ngIf="course.imageUrl" [src]="course.imageUrl | imageUrl" [alt]="course.title" class="course-image" />
+          <span *ngIf="!course.imageUrl">{{ getCourseIcon(course.category) }}</span>
+        </div>
         <div class="course-info">
           <h3>{{ course.title }}</h3>
           <div class="progress-bar">
@@ -76,25 +84,5 @@
     </div>
   </div>
 
-  <div class="content-section">
-    <h2>Recent Achievements 🏆</h2>
-    <div class="achievements-grid">
-      <div class="achievement-badge">
-        <div class="badge-icon">🥇</div>
-        <p>First Course!</p>
-      </div>
-      <div class="achievement-badge">
-        <div class="badge-icon">⭐</div>
-        <p>100 Stars</p>
-      </div>
-      <div class="achievement-badge">
-        <div class="badge-icon">🔥</div>
-        <p>7 Day Streak</p>
-      </div>
-      <div class="achievement-badge locked">
-        <div class="badge-icon">🏆</div>
-        <p>Master</p>
-      </div>
-    </div>
-  </div>
+ 
 </div>

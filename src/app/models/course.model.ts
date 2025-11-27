@@ -12,6 +12,7 @@ export interface Course {
   lessonCount?: number;
   enrollmentCount?: number;
   progress?: number;
+  imageUrl?: string;
 }
 
 export interface Lesson {

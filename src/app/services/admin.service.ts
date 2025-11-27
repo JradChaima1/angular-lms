@@ -17,6 +17,7 @@ export interface CreateCourseRequest {
   category: string;
   difficulty: string;
   duration: number;
+  imageUrl?: string;
 }
 
 export interface CreateLessonRequest {
@@ -103,5 +104,9 @@ export class AdminService {
 
   deleteQuestion(questionId: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/questions/${questionId}`);
+  }
+
+  uploadCourseImage(formData: FormData): Observable<any> {
+    return this.http.post('http://localhost:8080/api/upload/course-image', formData);
   }
 }

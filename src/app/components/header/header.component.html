@@ -1,15 +1,12 @@
 <header class="header">
   <div class="header-content">
     <div class="logo">
-      <span class="logo-icon">🎓</span>
-      <h1>Kids LMS</h1>
+      <img src="assets/logo.png" alt="LMS Logo" />
+      <h1>AcademyPro</h1>
     </div>
     
     <div class="user-menu" *ngIf="currentUser">
-      <button class="icon-btn">
-        <lucide-icon name="bell" [size]="20"></lucide-icon>
-        <span class="badge">3</span>
-      </button>
+    
 
     <div class="user-info" (click)="goToProfile()">
   <span class="user-avatar">{{ getInitials() }}</span>

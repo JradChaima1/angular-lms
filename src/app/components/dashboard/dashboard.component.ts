@@ -8,10 +8,12 @@ import { User } from '../../models/user.model';
 import { Course } from '../../models/course.model';
 import { Achievement } from '../../models/achievement.model';
 
+import { ImageUrlPipe } from '../../pipes/image-url.pipe';
+
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ImageUrlPipe],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })

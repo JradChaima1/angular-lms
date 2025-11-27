@@ -10,29 +10,31 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 30px;
-  max-width: 1400px;
-  margin: 0 auto;
+  padding: 15px 20px;
 }
 
 .logo {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 15px;
+  margin-right: auto;
 
-  .logo-icon {
-    font-size: 36px;
+  img {
+    height: 50px;
+    width: auto;
+    object-fit: contain;
   }
 
   h1 {
-    margin: 0;
     font-size: 28px;
+    font-weight: 700;
+    color: #333;
+    margin: 0;
     background: linear-gradient(90deg, #FF6B6B 0%, #4ECDC4 100%);
+
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    font-weight: 800;
-    font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', cursive;
   }
 }
 

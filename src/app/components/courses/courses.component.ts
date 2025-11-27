@@ -5,11 +5,12 @@ import { CourseService } from '../../services/course.service';
 import { Course } from '../../models/course.model';
 import { IconsModule } from '../../shared/icons.module';
 import { ToastService } from '../../services/toast.service';
+import { ImageUrlPipe } from '../../pipes/image-url.pipe';
 
 @Component({
   selector: 'app-courses',
   standalone: true,
-  imports: [CommonModule, IconsModule],
+  imports: [CommonModule, IconsModule, ImageUrlPipe],
   templateUrl: './courses.component.html',
   styleUrl: './courses.component.scss'
 })
@@ -96,16 +97,17 @@ export class CoursesComponent implements OnInit {
     });
   }
 
-  getCourseIcon(category: string): string {
-    const categoryMap: { [key: string]: string } = {
-      'MATH': '🔢',
-      'SCIENCE': '🔬',
-      'READING': '📖',
-      'ART': '🎨',
-      'MUSIC': '🎵'
-    };
-    return categoryMap[category] || '📚';
-  }
+ getCourseIcon(category: string): string {
+  const categoryMap: { [key: string]: string } = {
+    'MATH': 'assets/books.png',
+    'SCIENCE': 'assets/progress.png',
+    'Programming': 'assets/reading-icon.png',
+    'Physics': 'assets/art-icon.png',
+    'Art': 'assets/music-icon.png'
+  };
+  return categoryMap[category] || 'assets/default-icon.png';
+}
+
 
   getLessonsCount(course: Course): number {
     return course.lessonCount || course.lessons?.length || 0;

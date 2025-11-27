@@ -17,7 +17,9 @@
   </div>
 
   <div class="loading" *ngIf="isLoading">
-    <div class="spinner">⏳</div>
+    <div class="spinner">
+      <img src="assets/loading.png" alt="loading" />
+    </div>
     <p>Loading awesome courses...</p>
   </div>
 
@@ -33,7 +35,8 @@
       (click)="viewCourse(course.id)"
     >
       <div class="course-thumbnail">
-        <span class="course-icon">{{ getCourseIcon(course.category) }}</span>
+        <img *ngIf="course.imageUrl" [src]="course.imageUrl | imageUrl" [alt]="course.title" class="course-image" />
+        <span *ngIf="!course.imageUrl" class="course-icon">{{ getCourseIcon(course.category) }}</span>
         <div class="course-category">{{ course.category }}</div>
       </div>
       

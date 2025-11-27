@@ -1,118 +1,134 @@
 <div class="register-container">
   <div class="register-card">
-    <div class="logo">🎓</div>
-    <h2>Join the Fun!</h2>
-    <p class="subtitle">Start your amazing learning journey! 🌈</p>
+    <div class="logo">
+      <img src="assets/logo.png" alt="LMS Logo" />
+    </div>
+    <h2>Join Us!</h2>
+    <p class="subtitle">Start your amazing learning journey</p>
     
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-      <!-- First Name Field -->
       <div class="form-group">
         <label for="firstName">First Name</label>
-        <input 
-          type="text" 
-          id="firstName" 
-          formControlName="firstName"
-          class="form-control"
-          placeholder="Enter your first name"
-          [class.error]="registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched"
-        />
+        <div class="input-wrapper">
+          <i-lucide name="user" class="input-icon"></i-lucide>
+          <input 
+            type="text" 
+            id="firstName" 
+            formControlName="firstName"
+            class="form-control"
+            placeholder="Enter your first name"
+            [class.error]="registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched"
+          />
+        </div>
         <div class="error-message" *ngIf="registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched">
+          <i-lucide name="alert-circle" [size]="14"></i-lucide>
           <span *ngIf="registerForm.get('firstName')?.errors?.['required']">First name is required</span>
           <span *ngIf="registerForm.get('firstName')?.errors?.['minlength']">At least 2 characters</span>
         </div>
       </div>
 
-      <!-- Last Name Field -->
       <div class="form-group">
         <label for="lastName">Last Name</label>
-        <input 
-          type="text" 
-          id="lastName" 
-          formControlName="lastName"
-          class="form-control"
-          placeholder="Enter your last name"
-          [class.error]="registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched"
-        />
+        <div class="input-wrapper">
+          <i-lucide name="user" class="input-icon"></i-lucide>
+          <input 
+            type="text" 
+            id="lastName" 
+            formControlName="lastName"
+            class="form-control"
+            placeholder="Enter your last name"
+            [class.error]="registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched"
+          />
+        </div>
         <div class="error-message" *ngIf="registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched">
+          <i-lucide name="alert-circle" [size]="14"></i-lucide>
           <span *ngIf="registerForm.get('lastName')?.errors?.['required']">Last name is required</span>
           <span *ngIf="registerForm.get('lastName')?.errors?.['minlength']">At least 2 characters</span>
         </div>
       </div>
 
-      <!-- Email Field -->
       <div class="form-group">
         <label for="email">Email</label>
-        <input 
-          type="email" 
-          id="email" 
-          formControlName="email"
-          class="form-control"
-          placeholder="your@email.com"
-          [class.error]="registerForm.get('email')?.invalid && registerForm.get('email')?.touched"
-        />
+        <div class="input-wrapper">
+          <i-lucide name="mail" class="input-icon"></i-lucide>
+          <input 
+            type="email" 
+            id="email" 
+            formControlName="email"
+            class="form-control"
+            placeholder="your@email.com"
+            [class.error]="registerForm.get('email')?.invalid && registerForm.get('email')?.touched"
+          />
+        </div>
         <div class="error-message" *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+          <i-lucide name="alert-circle" [size]="14"></i-lucide>
           <span *ngIf="registerForm.get('email')?.errors?.['required']">Email is required</span>
           <span *ngIf="registerForm.get('email')?.errors?.['email']">Please enter a valid email</span>
         </div>
       </div>
 
-      <!-- Password Field -->
       <div class="form-group">
         <label for="password">Password</label>
-        <input 
-          type="password" 
-          id="password" 
-          formControlName="password"
-          class="form-control"
-          placeholder="••••••"
-          [class.error]="registerForm.get('password')?.invalid && registerForm.get('password')?.touched"
-        />
+        <div class="input-wrapper">
+          <i-lucide name="lock" class="input-icon"></i-lucide>
+          <input 
+            type="password" 
+            id="password" 
+            formControlName="password"
+            class="form-control"
+            placeholder="••••••"
+            [class.error]="registerForm.get('password')?.invalid && registerForm.get('password')?.touched"
+          />
+        </div>
         <div class="error-message" *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+          <i-lucide name="alert-circle" [size]="14"></i-lucide>
           <span *ngIf="registerForm.get('password')?.errors?.['required']">Password is required</span>
           <span *ngIf="registerForm.get('password')?.errors?.['minlength']">At least 6 characters</span>
         </div>
       </div>
 
-      <!-- Confirm Password Field -->
       <div class="form-group">
         <label for="confirmPassword">Confirm Password</label>
-        <input 
-          type="password" 
-          id="confirmPassword" 
-          formControlName="confirmPassword"
-          class="form-control"
-          placeholder="••••••"
-          [class.error]="registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.touched"
-        />
+        <div class="input-wrapper">
+          <i-lucide name="lock-keyhole" class="input-icon"></i-lucide>
+          <input 
+            type="password" 
+            id="confirmPassword" 
+            formControlName="confirmPassword"
+            class="form-control"
+            placeholder="••••••"
+            [class.error]="registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.touched"
+          />
+        </div>
         <div class="error-message" *ngIf="registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.touched">
+          <i-lucide name="alert-circle" [size]="14"></i-lucide>
           <span *ngIf="registerForm.get('confirmPassword')?.errors?.['required']">Please confirm password</span>
           <span *ngIf="registerForm.get('confirmPassword')?.errors?.['passwordMismatch']">Passwords don't match</span>
         </div>
       </div>
 
-      <!-- Success Message -->
       <div class="alert alert-success" *ngIf="successMessage">
+        <i-lucide name="check-circle" [size]="18"></i-lucide>
         {{ successMessage }}
       </div>
 
-      <!-- Error Message from Server -->
       <div class="alert alert-error" *ngIf="errorMessage">
+        <i-lucide name="x-circle" [size]="18"></i-lucide>
         {{ errorMessage }}
       </div>
 
-      <!-- Submit Button -->
       <button 
         type="submit" 
         class="btn-primary" 
         [disabled]="registerForm.invalid || isLoading"
       >
+        <i-lucide name="user-plus" [size]="20"></i-lucide>
         <span *ngIf="!isLoading">Create Account</span>
         <span *ngIf="isLoading">Creating...</span>
       </button>
 
-      <!-- Login Link -->
       <div class="login-link">
-        Already have an account? <a routerLink="/login">Login here</a>
+        Already have an account? <a routerLink="/login">Sign in</a>
       </div>
     </form>
   </div>
