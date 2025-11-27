@@ -14,11 +14,11 @@ import { AuthService } from '../../services/auth.service';
 export class SidebarComponent implements OnInit {
   menuItems = [
     { icon: 'home', label: 'Dashboard', route: '/dashboard' },
-    { icon: 'book-open', label: 'My Courses', route: '/courses' },
+    { icon: 'book-open', label: 'Courses', route: '/courses' },
     { icon: 'trophy', label: 'Achievements', route: '/achievements' },
-    { icon: 'bar-chart-3', label: 'Progress', route: '/progress' },
+ 
     { icon: 'user', label: 'Profile', route: '/profile' },
-    { icon: 'settings', label: 'Settings', route: '/settings' }
+   
   ];
 
   constructor(private authService: AuthService) {}

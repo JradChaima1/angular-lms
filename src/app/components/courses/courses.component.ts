@@ -25,9 +25,9 @@ export class CoursesComponent implements OnInit {
     { value: 'all', label: 'All Courses', icon: 'book-open' },
     { value: 'MATH', label: 'Math', icon: 'calculator' },
     { value: 'SCIENCE', label: 'Science', icon: 'book' },
-    { value: 'READING', label: 'Reading', icon: 'book' },
+    { value: 'PROGRAMMING', label: 'Programming', icon: 'code-2' },
     { value: 'ART', label: 'Art', icon: 'palette' },
-    { value: 'MUSIC', label: 'Music', icon: 'music' }
+    { value: 'Web Development', label: 'Web developpment', icon: 'globe-2' }
   ];
 
   constructor(
@@ -58,11 +58,12 @@ export class CoursesComponent implements OnInit {
 
   filterByCategory(category: string): void {
     this.selectedCategory = category;
+    
     if (category === 'all') {
       this.filteredCourses = this.courses;
     } else {
       this.filteredCourses = this.courses.filter(
-        course => course.category === category
+        course => course.category.toUpperCase() === category.toUpperCase()
       );
     }
   }

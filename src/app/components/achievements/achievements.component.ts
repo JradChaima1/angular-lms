@@ -67,4 +67,8 @@ export class AchievementsComponent implements OnInit {
   getProgressPercentage(achievement: Achievement): number {
     return Math.min((achievement.currentProgress / achievement.requiredCount) * 100, 100);
   }
+
+  isImagePath(icon: string): boolean {
+    return icon.startsWith('assets/') || icon.startsWith('/assets/') || icon.startsWith('http');
+  }
 }

@@ -98,6 +98,10 @@ export class AdminService {
     return this.http.post(`${this.apiUrl}/lessons/${lessonId}/quiz`, quiz);
   }
 
+  updateQuiz(quizId: number, quiz: CreateQuizRequest): Observable<any> {
+    return this.http.put(`${this.apiUrl}/quizzes/${quizId}`, quiz);
+  }
+
   addQuestion(quizId: number, question: CreateQuestionRequest): Observable<any> {
     return this.http.post(`${this.apiUrl}/quizzes/${quizId}/questions`, question);
   }

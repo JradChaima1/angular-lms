@@ -6,7 +6,10 @@
 
   <div class="course-hero">
     <div class="hero-content">
-      <div class="course-icon-large">{{ getCourseIcon(course.category) }}</div>
+      <div class="course-icon-large">
+        <img *ngIf="course.imageUrl" [src]="course.imageUrl | imageUrl" [alt]="course.title" />
+        <span *ngIf="!course.imageUrl">{{ getCourseIcon(course.category) }}</span>
+      </div>
       <div class="hero-text">
         <div class="course-category">{{ course.category }}</div>
         <h1>{{ course.title }}</h1>
@@ -88,10 +91,18 @@
         <h2>{{ selectedLesson.title }}</h2>
         
         <div *ngIf="selectedLesson.videoUrl" class="video-container">
-          <div class="video-placeholder">
+          <iframe 
+            *ngIf="getEmbedUrl(selectedLesson.videoUrl)"
+            [src]="getEmbedUrl(selectedLesson.videoUrl)" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen
+            class="video-player">
+          </iframe>
+          <div class="video-placeholder" *ngIf="!getEmbedUrl(selectedLesson.videoUrl)">
             <lucide-icon name="video" [size]="60"></lucide-icon>
-            <p>Video Player</p>
-            <span>{{ selectedLesson.videoUrl }}</span>
+            <p>Video URL</p>
+            <a [href]="selectedLesson.videoUrl" target="_blank">{{ selectedLesson.videoUrl }}</a>
           </div>
         </div>
 
@@ -104,11 +115,10 @@
             <lucide-icon name="check-circle" [size]="20"></lucide-icon>
             <span>Mark as Complete</span>
           </button>
-       <button class="btn-quiz" (click)="takeQuiz()">
-  <lucide-icon name="play" [size]="20"></lucide-icon>
-  <span>Take Quiz</span>
-</button>
-
+          <button *ngIf="selectedLesson.hasQuiz" class="btn-quiz" (click)="takeQuiz()">
+            <lucide-icon name="play" [size]="20"></lucide-icon>
+            <span>Take Quiz</span>
+          </button>
         </div>
       </div>
     </div>

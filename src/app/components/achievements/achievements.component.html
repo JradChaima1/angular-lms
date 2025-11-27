@@ -1,6 +1,6 @@
 <div class="achievements-page">
   <div class="page-header">
-    <h1>🏆 Achievements</h1>
+    <h1> Achievements</h1>
     <p>Track your learning milestones and earn rewards</p>
   </div>
 
@@ -47,7 +47,10 @@
       [class.unlocked]="achievement.unlocked"
       [class.locked]="!achievement.unlocked"
     >
-      <div class="achievement-icon">{{ achievement.icon }}</div>
+      <div class="achievement-icon">
+        <img *ngIf="isImagePath(achievement.icon)" [src]="achievement.icon" [alt]="achievement.name" />
+        <span *ngIf="!isImagePath(achievement.icon)">{{ achievement.icon }}</span>
+      </div>
       <div class="achievement-content">
         <h3>{{ achievement.name }}</h3>
         <p class="description">{{ achievement.description }}</p>

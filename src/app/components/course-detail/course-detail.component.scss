@@ -53,6 +53,17 @@ lucide-icon {
       justify-content: center;
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
       flex-shrink: 0;
+      overflow: hidden;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      span {
+        font-size: 120px;
+      }
     }
 
     .hero-text {
@@ -275,15 +286,36 @@ lucide-icon {
 
     .video-container {
       margin-bottom: 30px;
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 16px;
+      background: #000;
+
+      .video-player {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 16px;
+      }
 
       .video-placeholder {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
         background: #F0F0F0;
         border-radius: 16px;
-        padding: 80px 40px;
+        padding: 40px;
         text-align: center;
         display: flex;
         flex-direction: column;
         align-items: center;
+        justify-content: center;
         gap: 15px;
         color: #666;
 
@@ -293,9 +325,14 @@ lucide-icon {
           margin: 0;
         }
 
-        span {
+        a {
           font-size: 14px;
-          color: #999;
+          color: #667eea;
+          word-break: break-all;
+          
+          &:hover {
+            text-decoration: underline;
+          }
         }
       }
     }

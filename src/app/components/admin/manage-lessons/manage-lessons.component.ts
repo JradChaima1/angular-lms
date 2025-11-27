@@ -6,11 +6,12 @@ import { CourseService } from '../../../services/course.service';
 import { ToastService } from '../../../services/toast.service';
 import { Course, Lesson } from '../../../models/course.model';
 import { IconsModule } from '../../../shared/icons.module';
+import { ImageUrlPipe } from '../../../pipes/image-url.pipe';
 
 @Component({
   selector: 'app-manage-lessons',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, IconsModule],
+  imports: [CommonModule, ReactiveFormsModule, IconsModule, ImageUrlPipe],
   templateUrl: './manage-lessons.component.html',
   styleUrl: './manage-lessons.component.scss'
 })
@@ -99,7 +100,7 @@ export class ManageLessonsComponent implements OnInit {
       title: lesson.title,
       content: lesson.content,
       lessonOrder: lesson.order,
-      videoUrl: lesson.videoUrl,
+      videoUrl: lesson.videoUrl || '',
       duration: lesson.duration
     });
     this.showModal = true;

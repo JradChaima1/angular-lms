@@ -13,6 +13,9 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { AdminDashboardComponent } from './components/admin/admin-dashboard/admin-dashboard.component';
 import { ManageCoursesComponent } from './components/admin/manage-courses/manage-courses.component';
 import { ManageUsersComponent } from './components/admin/manage-users/manage-users.component';
+import { ManageLessonsComponent } from './components/admin/manage-lessons/manage-lessons.component';
+import { ManageQuizzesComponent } from './components/admin/manage-quizzes/manage-quizzes.component';
+
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
@@ -36,7 +39,9 @@ export const routes: Routes = [
           { path: '', component: AdminDashboardComponent },
           { path: 'dashboard', component: AdminDashboardComponent },
           { path: 'courses', component: ManageCoursesComponent },
-          { path: 'users', component: ManageUsersComponent }
+          { path: 'users', component: ManageUsersComponent },
+          { path: 'lessons', component: ManageLessonsComponent },
+          { path: 'quizzes', component: ManageQuizzesComponent }
         ]
       }
     ]

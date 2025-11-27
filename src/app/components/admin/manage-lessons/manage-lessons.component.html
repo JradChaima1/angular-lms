@@ -1,1 +1,204 @@
-<p>manage-lessons works!</p>
+<div class="manage-lessons">
+  <div class="page-header">
+    <div>
+      <h1>Manage Lessons</h1>
+      <p>Create and manage lessons for your courses</p>
+    </div>
+  </div>
+
+  <div class="content-layout">
+    <div class="courses-sidebar">
+      <h3>Select Course</h3>
+      <div *ngIf="isLoading" class="loading-small">
+        <img src="assets/loading.png" alt="loading" />
+      </div>
+      <div class="course-list" *ngIf="!isLoading">
+        <div 
+          *ngFor="let course of courses" 
+          class="course-item"
+          [class.active]="selectedCourse?.id === course.id"
+          (click)="selectCourse(course)"
+        >
+          <div class="course-icon-small">
+            <img *ngIf="course.imageUrl" [src]="course.imageUrl | imageUrl" [alt]="course.title" />
+            <span *ngIf="!course.imageUrl">{{ getCourseIcon(course.category) }}</span>
+          </div>
+          <div class="course-info-small">
+            <div class="course-title-small">{{ course.title }}</div>
+            <div class="course-meta-small">{{ course.lessonCount || 0 }} lessons</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lessons-main">
+      <div class="lessons-header">
+        <h2 *ngIf="selectedCourse">{{ selectedCourse.title }} - Lessons</h2>
+        <h2 *ngIf="!selectedCourse">Select a course to manage lessons</h2>
+        <button class="btn-create" (click)="openCreateModal()" *ngIf="selectedCourse">
+          <lucide-icon name="plus" [size]="20"></lucide-icon>
+          <span>Add Lesson</span>
+        </button>
+      </div>
+
+      <div class="lessons-grid" *ngIf="selectedCourse && lessons.length > 0">
+        <div *ngFor="let lesson of lessons" class="lesson-card">
+          <div class="lesson-header">
+            <div class="lesson-order">{{ lesson.order }}</div>
+            <div class="lesson-actions">
+              <button class="btn-icon" (click)="openEditModal(lesson)" title="Edit">
+                <lucide-icon name="edit-2" [size]="18"></lucide-icon>
+              </button>
+              <button class="btn-icon btn-delete" (click)="openDeleteModal(lesson)" title="Delete">
+                <lucide-icon name="trash-2" [size]="18"></lucide-icon>
+              </button>
+            </div>
+          </div>
+
+          <div class="lesson-content">
+            <h3>{{ lesson.title }}</h3>
+            <p class="lesson-description">{{ lesson.content }}</p>
+
+            <div class="lesson-meta">
+              <span class="meta-item" *ngIf="lesson.duration">
+                <lucide-icon name="clock" [size]="16"></lucide-icon>
+                {{ lesson.duration }} min
+              </span>
+              <span class="meta-item" *ngIf="lesson.videoUrl">
+                <lucide-icon name="video" [size]="16"></lucide-icon>
+                Has Video
+              </span>
+              <span class="meta-item" *ngIf="lesson.hasQuiz">
+                <lucide-icon name="help-circle" [size]="16"></lucide-icon>
+                Has Quiz
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="empty-state" *ngIf="selectedCourse && lessons.length === 0">
+        <lucide-icon name="book-open" [size]="80" [strokeWidth]="1.5"></lucide-icon>
+        <h3>No lessons yet</h3>
+        <p>Create your first lesson for this course</p>
+        <button class="btn-create" (click)="openCreateModal()">
+          <lucide-icon name="plus" [size]="20"></lucide-icon>
+          <span>Add Lesson</span>
+        </button>
+      </div>
+
+      <div class="empty-state" *ngIf="!selectedCourse && !isLoading">
+        <lucide-icon name="arrow-left" [size]="80" [strokeWidth]="1.5"></lucide-icon>
+        <h3>Select a course</h3>
+        <p>Choose a course from the sidebar to manage its lessons</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" *ngIf="showModal" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>{{ isEditMode ? 'Edit Lesson' : 'Create New Lesson' }}</h2>
+        <button class="btn-close" (click)="closeModal()">
+          <lucide-icon name="x" [size]="24"></lucide-icon>
+        </button>
+      </div>
+
+      <form [formGroup]="lessonForm" (ngSubmit)="saveLesson()">
+        <div class="form-group">
+          <label for="title">Lesson Title *</label>
+          <input
+            id="title"
+            type="text"
+            formControlName="title"
+            placeholder="Enter lesson title"
+          />
+          <div class="error" *ngIf="lessonForm.get('title')?.invalid && lessonForm.get('title')?.touched">
+            Title is required (min 3 characters)
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="content">Content *</label>
+          <textarea
+            id="content"
+            formControlName="content"
+            rows="6"
+            placeholder="Enter lesson content"
+          ></textarea>
+          <div class="error" *ngIf="lessonForm.get('content')?.invalid && lessonForm.get('content')?.touched">
+            Content is required (min 10 characters)
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="lessonOrder">Lesson Order *</label>
+            <input
+              id="lessonOrder"
+              type="number"
+              formControlName="lessonOrder"
+              placeholder="1"
+              min="1"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="duration">Duration (minutes) *</label>
+            <input
+              id="duration"
+              type="number"
+              formControlName="duration"
+              placeholder="30"
+              min="1"
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="videoUrl">Video URL (optional)</label>
+          <input
+            id="videoUrl"
+            type="text"
+            formControlName="videoUrl"
+            placeholder="https://youtube.com/watch?v=..."
+          />
+          <small>Add a YouTube or video URL for this lesson</small>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn-cancel" (click)="closeModal()" [disabled]="isSaving">
+            Cancel
+          </button>
+          <button type="submit" class="btn-save" [disabled]="isSaving">
+            <span *ngIf="!isSaving">{{ isEditMode ? 'Update' : 'Create' }} Lesson</span>
+            <span *ngIf="isSaving">Saving...</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal-overlay" *ngIf="showDeleteModal" (click)="closeDeleteModal()">
+    <div class="modal-content modal-delete" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>Delete Lesson</h2>
+      </div>
+
+      <div class="modal-body">
+        <p>Are you sure you want to delete <strong>"{{ lessonToDelete?.title }}"</strong>?</p>
+        <p class="warning-text">This action cannot be undone. All quizzes associated with this lesson will also be deleted.</p>
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" class="btn-cancel" (click)="closeDeleteModal()">
+          Cancel
+        </button>
+        <button type="button" class="btn-delete-confirm" (click)="confirmDelete()">
+          <lucide-icon name="trash-2" [size]="18"></lucide-icon>
+          <span>Delete Lesson</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

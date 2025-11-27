@@ -12,7 +12,6 @@ export class AuthService {
   public currentUser$ = this.currentUserSubject.asObservable();
 
   constructor(private http: HttpClient) {
-   
     this.checkExistingToken();
   }
 
@@ -42,8 +41,20 @@ export class AuthService {
 
   private fetchCurrentUser(): void {
     this.getCurrentUser().subscribe({
-      next: (user) => this.currentUserSubject.next(user),
-      error: () => this.logout()
+      next: (user) => {
+        this.currentUserSubject.next(user);
+      },
+      error: (error) => {
+        // Only logout if it's a 401/403 (unauthorized) error
+        if (error.status === 401 || error.status === 403) {
+          this.logout();
+        } else {
+          // Network or other error - retry after a short delay
+          setTimeout(() => {
+            this.fetchCurrentUser();
+          }, 1000);
+        }
+      }
     });
   }
 

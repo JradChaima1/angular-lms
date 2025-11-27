@@ -38,4 +38,8 @@ export class CourseService {
   getMyEnrolledCourses(): Observable<Course[]> {
     return this.http.get<Course[]>(`${this.apiUrl}/users/me/courses`);
   }
+
+  getQuizByLesson(lessonId: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/quizzes/lesson/${lessonId}`);
+  }
 }

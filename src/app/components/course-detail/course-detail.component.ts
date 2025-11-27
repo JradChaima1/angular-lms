@@ -1,15 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { CourseService } from '../../services/course.service';
 import { Course, Lesson } from '../../models/course.model';
 import { IconsModule } from '../../shared/icons.module';
 import { ToastService } from '../../services/toast.service';
+import { ImageUrlPipe } from '../../pipes/image-url.pipe';
 
 @Component({
   selector: 'app-course-detail',
   standalone: true,
-  imports: [CommonModule, IconsModule],
+  imports: [CommonModule, IconsModule, ImageUrlPipe],
   templateUrl: './course-detail.component.html',
   styleUrl: './course-detail.component.scss'
 })
@@ -24,7 +26,8 @@ constructor(
   private route: ActivatedRoute,
   private router: Router,
   private courseService: CourseService,
-  private toastService: ToastService
+  private toastService: ToastService,
+  private sanitizer: DomSanitizer
 ) {}
   ngOnInit(): void {
     const courseId = Number(this.route.snapshot.paramMap.get('id'));
@@ -67,11 +70,11 @@ constructor(
   if (this.course) {
     this.courseService.enrollInCourse(this.course.id).subscribe({
       next: () => {
-        alert('Successfully enrolled! 🎉');
+        this.toastService.success('Successfully enrolled! 🎉');
         this.loadCourse(this.course!.id);
       },
       error: (error) => {
-        alert('Failed to enroll. Please try again.');
+        this.toastService.error('Failed to enroll. Please try again.');
         console.error('Error enrolling:', error);
       }
     });
@@ -96,5 +99,19 @@ constructor(
       'MUSIC': '🎵'
     };
     return categoryMap[category] || '📚';
+  }
+
+  getEmbedUrl(url: string): SafeResourceUrl | null {
+    if (!url) return null;
+    
+    const youtubeRegex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/;
+    const match = url.match(youtubeRegex);
+    
+    if (match && match[1]) {
+      const embedUrl = `https://www.youtube.com/embed/${match[1]}`;
+      return this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
+    }
+    
+    return null;
   }
 }
