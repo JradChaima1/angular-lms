@@ -111,6 +111,6 @@ export class AdminService {
   }
 
   uploadCourseImage(formData: FormData): Observable<any> {
-    return this.http.post('http://localhost:8080/api/upload/course-image', formData);
+    return this.http.post(`${this.apiUrl.replace('/admin', '')}/upload/course-image`, formData);
   }
 }
