@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Course } from '../models/course.model';
 import { User } from '../models/user.model';
+import { environment } from '../../environments/environment';
 
 export interface AdminStats {
   totalUsers: number;
@@ -45,7 +46,7 @@ export interface CreateQuestionRequest {
   providedIn: 'root'
 })
 export class AdminService {
-  private apiUrl = 'https://lms-backend-1-9lds.onrender.com/api/admin'; // Update with your Render URL
+    private apiUrl = environment.apiUrl;// Update with your Render URL
 
   constructor(private http: HttpClient) {}
 

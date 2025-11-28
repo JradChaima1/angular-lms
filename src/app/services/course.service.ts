@@ -2,12 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Course, Lesson } from '../models/course.model';
+import { environment } from '../../environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class CourseService {
-  private apiUrl = 'https://lms-backend-1-9lds.onrender.com/api'; // Update with your Render URL
+  private apiUrl = environment.apiUrl; // Update with your Render URL
 
   constructor(private http: HttpClient) {}
 
