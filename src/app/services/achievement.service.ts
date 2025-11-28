@@ -8,7 +8,7 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class AchievementService {
-    private apiUrl = environment.apiUrl;
+  private apiUrl = 'https://lms-backend-1-9lds.onrender.com/api'
 
   constructor(private http: HttpClient) {}
 
