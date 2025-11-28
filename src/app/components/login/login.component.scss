@@ -43,7 +43,40 @@
     text-align: center;
     color: #666;
     font-size: 16px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
+  }
+
+  .test-credentials {
+    background: linear-gradient(135deg, #FFF9E6 0%, #FFE5B4 100%);
+    border: 2px dashed #FFB84D;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 25px;
+    font-size: 13px;
+
+    .test-title {
+      font-weight: 700;
+      color: #FF8C00;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .credential-item {
+      background: white;
+      padding: 8px 12px;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      color: #555;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      strong {
+        color: #FF6B6B;
+        margin-right: 5px;
+      }
+    }
   }
 }
 
