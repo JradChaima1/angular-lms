@@ -9,7 +9,7 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class QuizService {
-   private apiUrl = 'https://lms-backend-1-9lds.onrender.com/api'
+   private apiUrl = 'https://delighted-marrilee-chaimajrad1888spersonalcount-f3b38ced.koyeb.app/api'
 
   constructor(private http: HttpClient,
     private authService: AuthService

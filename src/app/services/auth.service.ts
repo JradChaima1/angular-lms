@@ -7,7 +7,7 @@ import { User, LoginRequest, RegisterRequest, AuthResponse } from '../models/use
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'https://lms-backend-1-9lds.onrender.com/api'; // Update with your Render URL
+  private apiUrl = 'https://delighted-marrilee-chaimajrad1888spersonalcount-f3b38ced.koyeb.app/api'; 
   private currentUserSubject = new BehaviorSubject<User | null>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
 

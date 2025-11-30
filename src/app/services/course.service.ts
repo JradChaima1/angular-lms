@@ -7,7 +7,7 @@ import { Course, Lesson } from '../models/course.model';
   providedIn: 'root'
 })
 export class CourseService {
-  private apiUrl = 'https://lms-backend-1-9lds.onrender.com/api'; // Update with your Render URL
+  private apiUrl = 'https://delighted-marrilee-chaimajrad1888spersonalcount-f3b38ced.koyeb.app/api'; 
 
   constructor(private http: HttpClient) {}
 
